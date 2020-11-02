@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:online_delivey_system_app/Components/profile.dart';
 import 'package:online_delivey_system_app/Components/Remaining_Nav.dart';
+import 'package:online_delivey_system_app/Components/completed_orders_nav.dart';
 
 class NavDrawer extends StatefulWidget {
   @override
@@ -81,10 +82,10 @@ class _NavDrawerState extends State<NavDrawer> {
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold)),
             onTap: () {
-              // Navigator.push(
-              //   context,
-              //   CupertinoPageRoute(builder: (context) => MyProfile()),
-              // );
+              Navigator.push(
+                context,
+                CupertinoPageRoute(builder: (context) => comepleteOrders()),
+              );
             },
           ),
           ListTile(

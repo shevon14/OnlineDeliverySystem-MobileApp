@@ -8,10 +8,10 @@ class cart_product extends StatefulWidget {
 class _cart_productState extends State<cart_product> {
   var products_on_the_cart = [
     {
-      'name': "Blazer",
-      'picture': "assets/images/Category/dress1.jpg",
+      'name': "Pizza",
+      'picture': "assets/images/pizza.jpg",
       'price': 85,
-      "color": "Red",
+      "color": "No.616,Galle Road,Kaluthara",
       "quantity": 1
     },
   ];
@@ -51,12 +51,16 @@ class single_product_cart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: ListTile(
-        leading: Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: Image.asset(prod_picture),
+      child: InkWell(
+        onTap: () {},
+        child: ListTile(
+          leading: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Image.asset(prod_picture),
+          ),
+          title: Text(prod_name),
+          subtitle: Text(prod_color),
         ),
-        title: Text(prod_name),
       ),
     );
   }
