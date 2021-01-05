@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:online_delivey_system_app/Components/profile.dart';
-import 'package:online_delivey_system_app/Components/Remaining_Nav.dart';
 
 class NavDrawer extends StatefulWidget {
   @override
@@ -42,12 +40,7 @@ class _NavDrawerState extends State<NavDrawer> {
             title: Text('My Profile',
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold)),
-            onTap: () {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(builder: (context) => profile()),
-              );
-            },
+            onTap: () { },
           ),
           ListTile(
             leading: Icon(
@@ -61,12 +54,7 @@ class _NavDrawerState extends State<NavDrawer> {
             title: Text('Remaining Orders',
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold)),
-            onTap: () {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(builder: (context) => cart()),
-              );
-            },
+            onTap: () { },
           ),
           ListTile(
             leading: Icon(

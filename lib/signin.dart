@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:online_delivey_system_app/home.dart';
 import 'package:online_delivey_system_app/signup.dart';
 import 'package:online_delivey_system_app/ui_curve_design.dart';
-import 'package:online_delivey_system_app/Screen/homeScreen.dart';
 
 class SignInView extends StatefulWidget {
   @override
@@ -175,7 +174,12 @@ class MyCustomFormState extends State<MyCustomForm> {
                         color: Colors.blue,
                         fontWeight: FontWeight.w900,
                         fontSize: 15),
-                    recognizer: TapGestureRecognizer()..onTap = () {}),
+                    recognizer: TapGestureRecognizer()..onTap = () {
+                      Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpView()),
+                  );
+                    }),
               ]),
             ),
           )),

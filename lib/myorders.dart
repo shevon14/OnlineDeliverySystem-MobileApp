@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:online_delivey_system_app/myorders.dart';
+import 'package:online_delivey_system_app/home.dart';
+import 'package:online_delivey_system_app/myorderdetails.dart';
 import 'package:online_delivey_system_app/nav_drawer.dart';
 import 'package:online_delivey_system_app/pickupdetail.dart';
 
-class HomeView extends StatefulWidget {
+class MyOrdersView extends StatefulWidget {
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _MyOrdersViewState createState() => _MyOrdersViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _MyOrdersViewState extends State<MyOrdersView> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,34 +35,34 @@ class _HomeViewState extends State<HomeView> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           SizedBox(
-                            height: 50,
+                            height: 40,
                             width: 150,
                             child: new RaisedButton(
-                                color: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Text('Order Pickups',
-                                    style: TextStyle(
-                                        color: Colors.indigo[900],
-                                        fontWeight: FontWeight.bold)),
-                                onPressed: (() {})),
-                          ),
-                          SizedBox(
-                              height: 40,
-                              width: 150,
-                              child: new RaisedButton(
                                 color: Colors.grey[100],
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5)),
-                                child: Text('My Orders',
+                                child: Text('Order Pickups',
                                     style: TextStyle(color: Colors.grey)),
-                                onPressed: () {
+                                onPressed: (() {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => MyOrdersView()),
+                                        builder: (context) => HomeView()),
                                   );
-                                },
+                                })),
+                          ),
+                          SizedBox(
+                              height: 50,
+                              width: 150,
+                              child: new RaisedButton(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Text('My Orders',
+                                    style: TextStyle(
+                                        color: Colors.indigo[900],
+                                        fontWeight: FontWeight.bold)),
+                                onPressed: () {},
                               )),
                         ],
                       ),
@@ -122,117 +123,9 @@ class _HomeViewState extends State<HomeView> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => PickUpDetailView()),
+                                    builder: (context) => MyOrderDetailView()),
                               );
                             },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            )),
-            Card(
-                child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.fastfood,
-                    color: Colors.blue,
-                    size: 40,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  SizedBox(
-                    width: 180,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("#1023A1",
-                            style: TextStyle(
-                                color: Colors.indigo[900],
-                                fontWeight: FontWeight.w900,
-                                fontSize: 20)),
-                        Text("No.5, Second Lane, Main Road, Negombo",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500)),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      ClipOval(
-                        child: Material(
-                          color: Colors.white10,
-                          child: InkWell(
-                            child: Icon(
-                              Icons.chevron_right,
-                              color: Colors.blue,
-                              size: 30,
-                            ),
-                            onTap: () {},
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            )),
-            Card(
-                child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.fastfood,
-                    color: Colors.blue,
-                    size: 40,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  SizedBox(
-                    width: 180,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("#1023A1",
-                            style: TextStyle(
-                                color: Colors.indigo[900],
-                                fontWeight: FontWeight.w900,
-                                fontSize: 20)),
-                        Text("No.5, Second Lane, Main Road, Negombo",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500)),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      ClipOval(
-                        child: Material(
-                          color: Colors.white10,
-                          child: InkWell(
-                            child: Icon(
-                              Icons.chevron_right,
-                              color: Colors.blue,
-                              size: 30,
-                            ),
-                            onTap: () {},
                           ),
                         ),
                       ),
