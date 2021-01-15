@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:online_delivey_system_app/myorders.dart';
 import 'package:online_delivey_system_app/nav_drawer.dart';
 import 'package:online_delivey_system_app/pickupdetail.dart';
+import 'package:http/http.dart' as http;
+
+import 'apiUrl/api.dart';
+import 'entities/order_model.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -9,6 +15,39 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+
+   List<OrderModel> _notes = List<OrderModel>();
+Future<List<OrderModel>> getOrders() async {
+
+    final String apiUrl = orderPickApi;
+    final response = await http.get(apiUrl);
+
+    var notes = List<OrderModel>();
+
+    if (response.statusCode == 200) {
+      var notesJson = json.decode(response.body);
+     for (var noteJson in notesJson) {
+        notes.add(OrderModel.fromJson(noteJson));
+      }
+    }
+    return notes;
+    //   return singupModelFromJson(responseString);
+    // } else {
+    //   return null;
+    // }
+  }
+
+    @override
+  void initState() {
+    getOrders().then((value) {
+      setState(() {
+        _notes.addAll(value);
+      });
+    });
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,283 +60,313 @@ class _HomeViewState extends State<HomeView> {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.blue,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Card(
-              child: Container(
-                decoration: BoxDecoration(color: Colors.grey[200]),
-                child: Padding(
-                    padding: EdgeInsets.all(5),
-                    child: Column(children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 50,
-                            width: 150,
-                            child: new RaisedButton(
-                                color: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Text('Order Pickups',
-                                    style: TextStyle(
-                                        color: Colors.indigo[900],
-                                        fontWeight: FontWeight.bold)),
-                                onPressed: (() {})),
-                          ),
-                          SizedBox(
-                              height: 40,
-                              width: 150,
-                              child: new RaisedButton(
-                                color: Colors.grey[100],
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Text('My Orders',
-                                    style: TextStyle(color: Colors.grey)),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MyOrdersView()),
-                                  );
-                                },
-                              )),
-                        ],
-                      ),
-                    ])),
-              ),
-            ),
-            Divider(
-              thickness: 2,
-              color: Colors.grey[300],
-              height: 20,
-            ),
-            Card(
-                child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.fastfood,
-                    color: Colors.blue,
-                    size: 40,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  SizedBox(
-                    width: 180,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("#1023A1",
-                            style: TextStyle(
-                                color: Colors.indigo[900],
-                                fontWeight: FontWeight.w900,
-                                fontSize: 20)),
-                        Text("No.5, Second Lane, Main Road, Negombo",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500)),
-                      ],
+      body: ListView.builder(
+          itemBuilder: (context, index) {
+            return Card(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 32.0, bottom: 32.0, left: 16.0, right: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      _notes[index].productId,
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      ClipOval(
-                        child: Material(
-                          color: Colors.white10,
-                          child: InkWell(
-                            child: Icon(
-                              Icons.chevron_right,
-                              color: Colors.blue,
-                              size: 30,
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PickUpDetailView()),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            )),
-            Card(
-                child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.fastfood,
-                    color: Colors.blue,
-                    size: 40,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  SizedBox(
-                    width: 180,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("#1023A1",
-                            style: TextStyle(
-                                color: Colors.indigo[900],
-                                fontWeight: FontWeight.w900,
-                                fontSize: 20)),
-                        Text("No.5, Second Lane, Main Road, Negombo",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500)),
-                      ],
+                    Text(
+                      _notes[index].address,
+                      style: TextStyle(color: Colors.grey.shade600),
                     ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      ClipOval(
-                        child: Material(
-                          color: Colors.white10,
-                          child: InkWell(
-                            child: Icon(
-                              Icons.chevron_right,
-                              color: Colors.blue,
-                              size: 30,
-                            ),
-                            onTap: () {},
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                  ],
+                ),
               ),
-            )),
-            Card(
-                child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.fastfood,
-                    color: Colors.blue,
-                    size: 40,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  SizedBox(
-                    width: 180,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("#1023A1",
-                            style: TextStyle(
-                                color: Colors.indigo[900],
-                                fontWeight: FontWeight.w900,
-                                fontSize: 20)),
-                        Text("No.5, Second Lane, Main Road, Negombo",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500)),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      ClipOval(
-                        child: Material(
-                          color: Colors.white10,
-                          child: InkWell(
-                            child: Icon(
-                              Icons.chevron_right,
-                              color: Colors.blue,
-                              size: 30,
-                            ),
-                            onTap: () {},
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            )),
-            Card(
-                child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.fastfood,
-                    color: Colors.blue,
-                    size: 40,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  SizedBox(
-                    width: 180,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("#1023A1",
-                            style: TextStyle(
-                                color: Colors.indigo[900],
-                                fontWeight: FontWeight.w900,
-                                fontSize: 20)),
-                        Text("No.5, Second Lane, Main Road, Negombo",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500)),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      ClipOval(
-                        child: Material(
-                          color: Colors.white10,
-                          child: InkWell(
-                            child: Icon(
-                              Icons.chevron_right,
-                              color: Colors.blue,
-                              size: 30,
-                            ),
-                            onTap: () {},
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ))
-          ],
-        ),
-      ),
+            );
+          },
+          itemCount: _notes.length,
+        )
+
+
+
+      // body: SingleChildScrollView(
+      //   child: Column(
+      //     children: <Widget>[
+      //       Card(
+      //         child: Container(
+      //           decoration: BoxDecoration(color: Colors.grey[200]),
+      //           child: Padding(
+      //               padding: EdgeInsets.all(5),
+      //               child: Column(children: <Widget>[
+      //                 Row(
+      //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //                   children: <Widget>[
+      //                     SizedBox(
+      //                       height: 50,
+      //                       width: 150,
+      //                       child: new RaisedButton(
+      //                           color: Colors.white,
+      //                           shape: RoundedRectangleBorder(
+      //                               borderRadius: BorderRadius.circular(5)),
+      //                           child: Text('Order Pickups',
+      //                               style: TextStyle(
+      //                                   color: Colors.indigo[900],
+      //                                   fontWeight: FontWeight.bold)),
+      //                           onPressed: (() {})),
+      //                     ),
+      //                     SizedBox(
+      //                         height: 40,
+      //                         width: 150,
+      //                         child: new RaisedButton(
+      //                           color: Colors.grey[100],
+      //                           shape: RoundedRectangleBorder(
+      //                               borderRadius: BorderRadius.circular(5)),
+      //                           child: Text('My Orders',
+      //                               style: TextStyle(color: Colors.grey)),
+      //                           onPressed: () {
+      //                             Navigator.push(
+      //                               context,
+      //                               MaterialPageRoute(
+      //                                   builder: (context) => MyOrdersView()),
+      //                             );
+      //                           },
+      //                         )),
+      //                   ],
+      //                 ),
+      //               ])),
+      //         ),
+      //       ),
+      //       Divider(
+      //         thickness: 2,
+      //         color: Colors.grey[300],
+      //         height: 20,
+      //       ),
+      //       Card(
+      //           child: Padding(
+      //         padding: EdgeInsets.all(10),
+      //         child: Row(
+      //           children: <Widget>[
+      //             Icon(
+      //               Icons.fastfood,
+      //               color: Colors.blue,
+      //               size: 40,
+      //             ),
+      //             SizedBox(
+      //               width: 10,
+      //             ),
+      //             SizedBox(
+      //               width: 180,
+      //               child: Column(
+      //                 crossAxisAlignment: CrossAxisAlignment.start,
+      //                 children: <Widget>[
+      //                   Text("#1023A1",
+      //                       style: TextStyle(
+      //                           color: Colors.indigo[900],
+      //                           fontWeight: FontWeight.w900,
+      //                           fontSize: 20)),
+      //                   Text("No.5, Second Lane, Main Road, Negombo",
+      //                       style: TextStyle(
+      //                           color: Colors.black,
+      //                           fontWeight: FontWeight.w500)),
+      //                 ],
+      //               ),
+      //             ),
+      //             SizedBox(
+      //               width: 40,
+      //             ),
+      //             Column(
+      //               crossAxisAlignment: CrossAxisAlignment.end,
+      //               children: <Widget>[
+      //                 ClipOval(
+      //                   child: Material(
+      //                     color: Colors.white10,
+      //                     child: InkWell(
+      //                       child: Icon(
+      //                         Icons.chevron_right,
+      //                         color: Colors.blue,
+      //                         size: 30,
+      //                       ),
+      //                       onTap: () {
+      //                         Navigator.push(
+      //                           context,
+      //                           MaterialPageRoute(
+      //                               builder: (context) => PickUpDetailView()),
+      //                         );
+      //                       },
+      //                     ),
+      //                   ),
+      //                 ),
+      //               ],
+      //             ),
+      //           ],
+      //         ),
+      //       )),
+      //       Card(
+      //           child: Padding(
+      //         padding: EdgeInsets.all(10),
+      //         child: Row(
+      //           children: <Widget>[
+      //             Icon(
+      //               Icons.fastfood,
+      //               color: Colors.blue,
+      //               size: 40,
+      //             ),
+      //             SizedBox(
+      //               width: 10,
+      //             ),
+      //             SizedBox(
+      //               width: 180,
+      //               child: Column(
+      //                 crossAxisAlignment: CrossAxisAlignment.start,
+      //                 children: <Widget>[
+      //                   Text("#1023A1",
+      //                       style: TextStyle(
+      //                           color: Colors.indigo[900],
+      //                           fontWeight: FontWeight.w900,
+      //                           fontSize: 20)),
+      //                   Text("No.5, Second Lane, Main Road, Negombo",
+      //                       style: TextStyle(
+      //                           color: Colors.black,
+      //                           fontWeight: FontWeight.w500)),
+      //                 ],
+      //               ),
+      //             ),
+      //             SizedBox(
+      //               width: 40,
+      //             ),
+      //             Column(
+      //               crossAxisAlignment: CrossAxisAlignment.end,
+      //               children: <Widget>[
+      //                 ClipOval(
+      //                   child: Material(
+      //                     color: Colors.white10,
+      //                     child: InkWell(
+      //                       child: Icon(
+      //                         Icons.chevron_right,
+      //                         color: Colors.blue,
+      //                         size: 30,
+      //                       ),
+      //                       onTap: () {},
+      //                     ),
+      //                   ),
+      //                 ),
+      //               ],
+      //             ),
+      //           ],
+      //         ),
+      //       )),
+      //       Card(
+      //           child: Padding(
+      //         padding: EdgeInsets.all(10),
+      //         child: Row(
+      //           children: <Widget>[
+      //             Icon(
+      //               Icons.fastfood,
+      //               color: Colors.blue,
+      //               size: 40,
+      //             ),
+      //             SizedBox(
+      //               width: 10,
+      //             ),
+      //             SizedBox(
+      //               width: 180,
+      //               child: Column(
+      //                 crossAxisAlignment: CrossAxisAlignment.start,
+      //                 children: <Widget>[
+      //                   Text("#1023A1",
+      //                       style: TextStyle(
+      //                           color: Colors.indigo[900],
+      //                           fontWeight: FontWeight.w900,
+      //                           fontSize: 20)),
+      //                   Text("No.5, Second Lane, Main Road, Negombo",
+      //                       style: TextStyle(
+      //                           color: Colors.black,
+      //                           fontWeight: FontWeight.w500)),
+      //                 ],
+      //               ),
+      //             ),
+      //             SizedBox(
+      //               width: 40,
+      //             ),
+      //             Column(
+      //               crossAxisAlignment: CrossAxisAlignment.end,
+      //               children: <Widget>[
+      //                 ClipOval(
+      //                   child: Material(
+      //                     color: Colors.white10,
+      //                     child: InkWell(
+      //                       child: Icon(
+      //                         Icons.chevron_right,
+      //                         color: Colors.blue,
+      //                         size: 30,
+      //                       ),
+      //                       onTap: () {},
+      //                     ),
+      //                   ),
+      //                 ),
+      //               ],
+      //             ),
+      //           ],
+      //         ),
+      //       )),
+      //       Card(
+      //           child: Padding(
+      //         padding: EdgeInsets.all(10),
+      //         child: Row(
+      //           children: <Widget>[
+      //             Icon(
+      //               Icons.fastfood,
+      //               color: Colors.blue,
+      //               size: 40,
+      //             ),
+      //             SizedBox(
+      //               width: 10,
+      //             ),
+      //             SizedBox(
+      //               width: 180,
+      //               child: Column(
+      //                 crossAxisAlignment: CrossAxisAlignment.start,
+      //                 children: <Widget>[
+      //                   Text("#1023A1",
+      //                       style: TextStyle(
+      //                           color: Colors.indigo[900],
+      //                           fontWeight: FontWeight.w900,
+      //                           fontSize: 20)),
+      //                   Text("No.5, Second Lane, Main Road, Negombo",
+      //                       style: TextStyle(
+      //                           color: Colors.black,
+      //                           fontWeight: FontWeight.w500)),
+      //                 ],
+      //               ),
+      //             ),
+      //             SizedBox(
+      //               width: 40,
+      //             ),
+      //             Column(
+      //               crossAxisAlignment: CrossAxisAlignment.end,
+      //               children: <Widget>[
+      //                 ClipOval(
+      //                   child: Material(
+      //                     color: Colors.white10,
+      //                     child: InkWell(
+      //                       child: Icon(
+      //                         Icons.chevron_right,
+      //                         color: Colors.blue,
+      //                         size: 30,
+      //                       ),
+      //                       onTap: () {},
+      //                     ),
+      //                   ),
+      //                 ),
+      //               ],
+      //             ),
+      //           ],
+      //         ),
+      //       ))
+      //     ],
+      //   ),
+      // ),
     ));
   }
 }
+
+
