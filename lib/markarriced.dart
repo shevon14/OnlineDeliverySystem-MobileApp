@@ -30,7 +30,7 @@ class MarkArrivedData {
 
 //function to fetch the data
   MarkArrivedData() {
-    _item = fetched_data["item"];
+    _item = fetched_data["items"];
   }
 
   String getOrderID() {
@@ -137,10 +137,13 @@ class _MarkArrivedViewState extends State<MarkArrivedView> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        //build list view
+                        SizedBox(
+                          height: 600,
+                          child: Expanded(
+                            child://build list view
                         ListView.builder(
                             shrinkWrap: true,
-                            itemCount: 3,
+                            itemCount: MarkArrivedData().getItemsLength(),
                             itemBuilder: (context, index) {
                               return
                                   //listview card
@@ -207,7 +210,8 @@ class _MarkArrivedViewState extends State<MarkArrivedView> {
                                   ),
                                 ),
                               );
-                            }),
+                            }), ),
+                        )
                       ],
                     ),
                   ),

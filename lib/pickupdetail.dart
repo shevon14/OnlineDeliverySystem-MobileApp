@@ -31,8 +31,8 @@ class PickOrderData {
     "items": [
       {
           //ekama order eke products wadi weddi meke length eka wadi karala enna danna
-          "itemName": "Vegetable",
-          "quantity": "100 g",
+          "itemName": " Vegetable",
+          "quantity": " 100 g",
           "image":
               "https://fyi.extension.wisc.edu/safefood/files/2019/04/CDC_produce.png"
         },
@@ -42,7 +42,7 @@ class PickOrderData {
 
 //function to fetch the data
   PickOrderData() {
-    _item = fetched_data["item"];
+    _item = fetched_data["items"];
   }
 
   String getSellerName() {

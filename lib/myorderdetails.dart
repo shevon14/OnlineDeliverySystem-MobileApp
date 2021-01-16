@@ -40,7 +40,7 @@ class MyPickOrderData {
 
 //function to fetch the data
   MyPickOrderData() {
-    _item = fetched_data["item"];
+    _item = fetched_data["items"];
   }
 
   String getSellerName() {

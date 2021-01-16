@@ -74,71 +74,80 @@ class _MyOrdersViewState extends State<MyOrdersView> {
               color: Colors.grey[300],
               height: 20,
             ),
-             ListView.builder(
-                itemCount: 3,  //array length
-                itemBuilder: (context, index) {
-                  return Card(
-                      child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.fastfood,
-                          color: Colors.blue,
-                          size: 40,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        SizedBox(
-                          width: 180,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text("#12345",    //get id number
-                                  style: TextStyle(
-                                      color: Colors.indigo[900],
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 20)),
-                              Text("No5, Negombo",  //get address details
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500)),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 40,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            ClipOval(
-                              child: Material(
-                                color: Colors.white10,
-                                child: InkWell(
-                                  child: Icon(
-                                    Icons.chevron_right,
-                                    color: Colors.blue,
-                                    size: 30,
-                                  ),
-                                  onTap: () {    //pickupdatils click
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              PickUpDetailView()),
-                                    );
-                                  },
+            Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              SizedBox(
+                  height: 600,
+                  child: Expanded(
+                    child: new ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: 3, //array length
+                        itemBuilder: (context, index) {
+                          return Card(
+                              child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.fastfood,
+                                  color: Colors.blue,
+                                  size: 40,
                                 ),
-                              ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                SizedBox(
+                                  width: 180,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text("#12345", //get id number
+                                          style: TextStyle(
+                                              color: Colors.indigo[900],
+                                              fontWeight: FontWeight.w900,
+                                              fontSize: 20)),
+                                      Text("No5, Negombo", //get address details
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500)),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 40,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    ClipOval(
+                                      child: Material(
+                                        color: Colors.white10,
+                                        child: InkWell(
+                                          child: Icon(
+                                            Icons.chevron_right,
+                                            color: Colors.blue,
+                                            size: 30,
+                                          ),
+                                          onTap: () {
+                                            //pickupdatils click
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MyOrderDetailView()),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ));
-                }),
+                          ));
+                        }),
+                  ))
+            ])
           ],
         ),
       ),

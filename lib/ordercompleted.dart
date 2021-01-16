@@ -12,7 +12,7 @@ class MarkCompleteData {
   Map fetched_data = {
     "OrderID" : "#102453",
     "PayementMethod": "Cash On Delivery",
-    "TotalAmount": 5000,
+    "TotalAmount": 5400,
     "YourEarnings": 200,
   };
 

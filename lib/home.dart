@@ -13,6 +13,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+
   List<OrderModel> _notes = List<OrderModel>();
   Future<List<OrderModel>> getOrders() async {
     final String apiUrl = orderPickApi;
@@ -55,8 +56,9 @@ class _HomeViewState extends State<HomeView> {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.blue,
       ),
-      body: SingleChildScrollView(
+      body:   SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Card(
               child: Container(
@@ -107,8 +109,15 @@ class _HomeViewState extends State<HomeView> {
               color: Colors.grey[300],
               height: 20,
             ),
-            ListView.builder(
-                itemCount: _notes.length,  //array length
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                SizedBox(
+                  height: 600,
+                  child: 
+                Expanded(child: new ListView.builder(
+                  shrinkWrap: true,
+                itemCount: 2,  //array length
                 itemBuilder: (context, index) {
                   return Card(
                       child: Padding(
@@ -128,12 +137,12 @@ class _HomeViewState extends State<HomeView> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(_notes[index].productId,    //get id number
+                              Text("#123", //_notes[index].productId,    //get id number
                                   style: TextStyle(
                                       color: Colors.indigo[900],
                                       fontWeight: FontWeight.w900,
                                       fontSize: 20)),
-                              Text(_notes[index].address,  //get address details
+                              Text( "Negombo", //_notes[index].address,  //get address details
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500)),
@@ -171,10 +180,13 @@ class _HomeViewState extends State<HomeView> {
                       ],
                     ),
                   ));
-                }),
+                }),),
+                ),
+              ],
+            )
           ],
         ),
-      ),
+      ), 
     ));
   }
 }
