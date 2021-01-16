@@ -4,6 +4,11 @@ import 'package:online_delivey_system_app/home.dart';
 import 'package:online_delivey_system_app/signup.dart';
 import 'package:online_delivey_system_app/ui_curve_design.dart';
 
+import 'apiUrl/api.dart';
+import 'entities/singup_model.dart';
+import 'package:http/http.dart' as http;
+
+
 class SignInView extends StatefulWidget {
   @override
   _SignInViewState createState() => _SignInViewState();
@@ -39,6 +44,12 @@ class MyCustomForm extends StatefulWidget {
 
 //For the Form and Validation part
 class MyCustomFormState extends State<MyCustomForm> {
+
+  SingupModel _singup;
+
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -66,6 +77,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: Padding(
               padding: EdgeInsets.only(),
               child: TextField(
+                controller: emailController,
                 style: TextStyle(color: Theme.of(context).accentColor),
                 decoration: InputDecoration(
                   hintText: "Email Address",
@@ -93,6 +105,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: Padding(
               padding: EdgeInsets.only(),
               child: TextField(
+                controller: passwordController,
                 style: TextStyle(color: Theme.of(context).accentColor),
                 decoration: InputDecoration(
                   hintText: "Password",
@@ -131,11 +144,24 @@ class MyCustomFormState extends State<MyCustomForm> {
                 shape: new RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(30.0),
                 ),
-                onPressed: () {
-                  Navigator.push(
+                onPressed: () async{
+                  var deliverPeson = SingupModel(
+                    email: emailController.text,
+                    password: passwordController.text,
+                  );
+
+                   final SingupModel singup = await createSingup(deliverPeson);
+                  setState(() {
+                    _singup = singup;
+                  });
+
+                 if(singup!=null){
+                    Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => HomeView()),
                   );
+                  }
+                  
                 },
               )),
           SizedBox(
@@ -188,3 +214,25 @@ class MyCustomFormState extends State<MyCustomForm> {
     );
   }
 }
+
+
+ Future<SingupModel> createSingup(SingupModel userData) async {
+    final String apiUrl = deliversLoginApi;
+
+    bool login=false;
+    
+    final response = await http.post(apiUrl, body: {
+      "email": userData.email,
+      "password": userData.password,
+    });
+
+    if (response.statusCode == 200) {
+      final String responseString = response.body;
+ login=true;
+      return singupModelFromJson(responseString);
+    } else {
+      return null;
+    }
+  }
+
+              
