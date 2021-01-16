@@ -13,25 +13,29 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-
   List<OrderModel> _notes = List<OrderModel>();
+  List<OrderModel> _notes2 = List<OrderModel>();
   Future<List<OrderModel>> getOrders() async {
     final String apiUrl = orderPickApi;
     final response = await http.get(apiUrl);
 
     var notes = List<OrderModel>();
+    var filterNotes = List<OrderModel>();
+    String preOrderId;
 
     if (response.statusCode == 200) {
       var notesJson = json.decode(response.body);
       for (var noteJson in notesJson) {
         notes.add(OrderModel.fromJson(noteJson));
       }
+      for (var i = 0; i < notes.length; i++) {
+        if (preOrderId != notes[i].orderId) {
+          filterNotes.add(notes[i]);
+        }
+        preOrderId = notes[i].orderId;
+      }
     }
-    return notes;
-    //   return singupModelFromJson(responseString);
-    // } else {
-    //   return null;
-    // }
+    return filterNotes;
   }
 
   @override
