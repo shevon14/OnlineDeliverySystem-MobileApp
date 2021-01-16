@@ -121,7 +121,7 @@ class _HomeViewState extends State<HomeView> {
                   child: 
                 Expanded(child: new ListView.builder(
                   shrinkWrap: true,
-                itemCount: 2,  //array length
+                itemCount: _notes.length,  //array length
                 itemBuilder: (context, index) {
                   return Card(
                       child: Padding(
@@ -141,12 +141,12 @@ class _HomeViewState extends State<HomeView> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text("#123", //_notes[index].productId,    //get id number
+                              Text(_notes[index].productId, //_notes[index].productId,    //get id number
                                   style: TextStyle(
                                       color: Colors.indigo[900],
                                       fontWeight: FontWeight.w900,
                                       fontSize: 20)),
-                              Text( "Negombo", //_notes[index].address,  //get address details
+                              Text( _notes[index].productId, //_notes[index].address,  //get address details
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500)),

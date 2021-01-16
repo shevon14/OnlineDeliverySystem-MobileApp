@@ -226,7 +226,7 @@ class MyCustomFormState extends State<MyCustomForm> {
       "password": userData.password,
     });
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 401) {
       final String responseString = response.body;
  login=true;
       return singupModelFromJson(responseString);
