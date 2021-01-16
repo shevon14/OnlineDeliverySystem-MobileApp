@@ -24,6 +24,7 @@ class OrderModel {
         this.state,
         this.shopId,
         this.deliverPersonId,
+        this.orderId,
     });
 
     String uId;
@@ -40,6 +41,7 @@ class OrderModel {
     String state;
     String shopId;
     String deliverPersonId;
+    String orderId;
 
     factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
         uId: json["u_id"],
@@ -56,6 +58,8 @@ class OrderModel {
         state: json["state"],
         shopId: json["shopID"],
         deliverPersonId: json["deliverPersonId"],
+        orderId: json["orderId"],
+        
     );
 
     Map<String, dynamic> toJson() => {
@@ -73,5 +77,7 @@ class OrderModel {
         "state": state,
         "shopID": shopId,
         "deliverPersonId": deliverPersonId,
+        "orderId": orderId,
+        
     };
 }
