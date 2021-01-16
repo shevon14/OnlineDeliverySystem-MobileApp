@@ -7,6 +7,34 @@ class OrderCompletedView extends StatefulWidget {
   _OrderCompletedViewState createState() => _OrderCompletedViewState();
 }
 
+//array details for order complete - modelen ekan details aran danna click kalma id ekata
+class MarkCompleteData {
+  Map fetched_data = {
+    "OrderID" : "#102453",
+    "PayementMethod": "Cash On Delivery",
+    "TotalAmount": 5000,
+    "YourEarnings": 200,
+  };
+
+//function to fetch the data
+  String getOrderID() {
+    return fetched_data["OrderID"];
+  }
+
+  String getPaymentMethod() {
+    return fetched_data["PayementMethod"];
+  }
+
+  int getTotalAmount(){
+    return fetched_data["TotalAmount"];
+  }
+
+  int getYourEarnings(){
+    return fetched_data["YourEarnings"];
+  }
+}
+
+
 class _OrderCompletedViewState extends State<OrderCompletedView> {
   @override
   Widget build(BuildContext context) {
@@ -17,7 +45,7 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
             appBar: AppBar(
               iconTheme: new IconThemeData(color: Colors.white),
               titleSpacing: -10,
-              title: Text('Ideal Store1',
+              title: Text('Ideal Store',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold)),
               backgroundColor: Colors.blue,
@@ -43,12 +71,12 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text("#15401006",
+                                Text(MarkCompleteData().getOrderID(),
                                     style: TextStyle(
                                         color: Colors.indigo[900],
                                         fontWeight: FontWeight.w900,
                                         fontSize: 18)),
-                                Text("Cash On Delivery",
+                                Text(MarkCompleteData().getPaymentMethod(),
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w700,
@@ -62,7 +90,7 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
                       children: <Widget>[
                         Padding(padding: EdgeInsets.all(5)),
                         Text(
-                          "Total Amount  - Rs.3500.00/=",
+                          "Total Amount  - Rs." + MarkCompleteData().getTotalAmount().toString() + ".00/=",
                           style: TextStyle(
                               color: Colors.indigo[900],
                               fontWeight: FontWeight.w800,
@@ -77,7 +105,7 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
                       children: <Widget>[
                         Padding(padding: EdgeInsets.all(5)),
                         Text(
-                          "Your Earnings - Rs.300.00/=",
+                          "Your Earnings - Rs." + MarkCompleteData().getYourEarnings().toString() + ".00/=",
                           style: TextStyle(
                               color: Colors.indigo[900],
                               fontWeight: FontWeight.w800,

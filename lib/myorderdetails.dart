@@ -18,6 +18,73 @@ void customLaunch(command) async {
   }
 }
 
+class MyPickOrderData {
+  Map fetched_data = {
+    "sellerName": "getSellerName",
+    "sellerAddress": "getSellerAddress",
+    "sellerContactNumber": "getSellerContactNumber",
+    "customerName": "getcustomerName",
+    "customerAddress": "getcustomerAddress",
+    "customerContactNumber": "getcustomerContactNumber",
+    "items": [
+        {
+          //ekama order eke products wadi weddi meke length eka wadi karala enna danna
+          "itemName": "Vegetable",
+          "quantity": "100 g",
+          "image":
+              "https://fyi.extension.wisc.edu/safefood/files/2019/04/CDC_produce.png"
+        },
+    ]
+  };
+  List _item;
+
+//function to fetch the data
+  MyPickOrderData() {
+    _item = fetched_data["item"];
+  }
+
+  String getSellerName() {
+    return fetched_data["sellerName"];
+    // _data[index]["sellerName"];
+  }
+
+  String getSellerAddress() {
+    return fetched_data["sellerAddress"];
+  }
+
+  String getSellerConatctNumber() {
+    return fetched_data["sellerContactNumber"];
+  }
+
+  String getCustomerName() {
+    return fetched_data["customerName"];
+  }
+
+  String getCustomerAddress() {
+    return fetched_data["customerAddress"];
+  }
+
+  String getCustomerConatctNumber() {
+    return fetched_data["customerContactNumber"];
+  }
+
+  String getQuantity(int index) {
+    return _item[index]["itemName"];
+  }
+
+  String getItemName(int index) {
+    return _item[index]["quantity"];
+  }
+
+  String getImg(int index) {
+    return _item[index]["image"];
+  }
+
+  int getItemsLength() {
+    return _item.length;
+  }
+}
+
 class _MyOrderDetailViewState extends State<MyOrderDetailView> {
   @override
   Widget build(BuildContext context) {
@@ -62,7 +129,7 @@ class _MyOrderDetailViewState extends State<MyOrderDetailView> {
                         child: Column(
                           children: <Widget>[
                             ListTile(
-                              title: Text("Customer name",
+                              title: Text(MyPickOrderData().getCustomerName(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600)),
@@ -78,7 +145,7 @@ class _MyOrderDetailViewState extends State<MyOrderDetailView> {
                             ),
                             ListTile(
                               title: Text(
-                                  "N0.36, Second Lane ,Main Road, Colombo 04",
+                                  MyPickOrderData().getCustomerAddress(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600)),
@@ -157,7 +224,7 @@ class _MyOrderDetailViewState extends State<MyOrderDetailView> {
                         child: Column(
                           children: <Widget>[
                             ListTile(
-                              title: Text("Supplier name",
+                              title: Text(MyPickOrderData().getSellerName(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600)),
@@ -173,7 +240,7 @@ class _MyOrderDetailViewState extends State<MyOrderDetailView> {
                             ),
                             ListTile(
                               title: Text(
-                                  "N0.36, Second Lane ,Main Road, Colombo 04",
+                                  MyPickOrderData().getSellerAddress(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600)),
@@ -253,7 +320,7 @@ class _MyOrderDetailViewState extends State<MyOrderDetailView> {
                         //build list view
                         ListView.builder(
                             shrinkWrap: true,
-                            itemCount: 2,
+                            itemCount: MyPickOrderData().getItemsLength(),
                             itemBuilder: (context, index) {
                               return
                                   //listview card
@@ -267,12 +334,12 @@ class _MyOrderDetailViewState extends State<MyOrderDetailView> {
                                         height: 50,
                                         width: 50,
                                         child: DecoratedBox(
-                                          // child: Image.network(
-                                          //   "https://cdn.cnn.com/cnnnext/dam/assets/181010131059-australia-best-beaches-cossies-beach-cocos3.jpg",
-                                          //   width: 100,
-                                          //   height: 100,
-                                          //   fit: BoxFit.cover,
-                                          // ),
+                                          child: Image.network(
+                                            MyPickOrderData().getImg(index),
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.cover,
+                                          ),
                                           decoration: BoxDecoration(
                                               color: Colors.grey[200],
                                               borderRadius:
@@ -304,14 +371,14 @@ class _MyOrderDetailViewState extends State<MyOrderDetailView> {
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
                                           //item name
-                                          Text(" : 6",
+                                          Text(" :"+ MyPickOrderData().getItemName(index),
                                               style: TextStyle(
                                                   color: Colors.black)),
                                           SizedBox(
                                             height: 5,
                                           ),
                                           //item quantity
-                                          Text(" : 2",
+                                          Text(" :" + MyPickOrderData().getQuantity(index),
                                               style: TextStyle(
                                                   color: Colors.black)),
                                         ],

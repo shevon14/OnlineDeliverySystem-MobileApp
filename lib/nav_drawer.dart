@@ -6,6 +6,22 @@ class NavDrawer extends StatefulWidget {
   _NavDrawerState createState() => _NavDrawerState();
 }
 
+class MyDrawerDetails {
+  Map fetched_data = {
+    "Name" : "Sample Name",
+    "Email": "sample@gmail.com",
+  };
+
+//function to fetch the data
+  String getName() {
+    return fetched_data["Name"];
+  }
+
+  String getEmail() {
+    return fetched_data["Email"];
+  }
+}
+
 class _NavDrawerState extends State<NavDrawer> {
   @override
   Widget build(BuildContext context) {
@@ -18,13 +34,13 @@ class _NavDrawerState extends State<NavDrawer> {
               backgroundColor: Colors.white,
             ),
             accountName: Text(
-              "Sample Name",
+              MyDrawerDetails().getName(),
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 18),
             ),
-            accountEmail: Text("samplegmail2020@gmail.com",
+            accountEmail: Text(MyDrawerDetails().getEmail(),
                 style: TextStyle(color: Colors.black)),
             decoration: BoxDecoration(color: Colors.blue),
           ),
