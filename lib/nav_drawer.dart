@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:online_delivey_system_app/completeordershistory.dart';
+import 'package:online_delivey_system_app/myearnigs.dart';
+import 'package:online_delivey_system_app/myorders.dart';
+import 'package:online_delivey_system_app/myprofileview.dart';
 
 class NavDrawer extends StatefulWidget {
   @override
@@ -8,7 +12,7 @@ class NavDrawer extends StatefulWidget {
 
 class MyDrawerDetails {
   Map fetched_data = {
-    "Name" : "Sample Name",
+    "Name": "Sample Name",
     "Email": "sample@gmail.com",
   };
 
@@ -56,7 +60,12 @@ class _NavDrawerState extends State<NavDrawer> {
             title: Text('My Profile',
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold)),
-            onTap: () { },
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyProfileView()),
+              );
+            },
           ),
           ListTile(
             leading: Icon(
@@ -70,7 +79,12 @@ class _NavDrawerState extends State<NavDrawer> {
             title: Text('Remaining Orders',
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold)),
-            onTap: () { },
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyOrdersView()),
+              );
+            },
           ),
           ListTile(
             leading: Icon(
@@ -85,10 +99,10 @@ class _NavDrawerState extends State<NavDrawer> {
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold)),
             onTap: () {
-              // Navigator.push(
-              //   context,
-              //   CupertinoPageRoute(builder: (context) => MyProfile()),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CompleteOrderHistoryView()),
+              );
             },
           ),
           ListTile(
@@ -104,10 +118,10 @@ class _NavDrawerState extends State<NavDrawer> {
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold)),
             onTap: () {
-              // Navigator.push(
-              //   context,
-              //   CupertinoPageRoute(builder: (context) => MyProfile()),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CashMangementView()),
+              );
             },
           ),
           ListTile(
