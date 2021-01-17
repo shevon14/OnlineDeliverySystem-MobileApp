@@ -1,8 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:online_delivey_system_app/home.dart';
 import 'package:online_delivey_system_app/myorderdetails.dart';
 import 'package:online_delivey_system_app/nav_drawer.dart';
 import 'package:online_delivey_system_app/pickupdetail.dart';
+import 'package:http/http.dart' as http;
+
+import 'apiUrl/api.dart';
+import 'common/common_data.dart';
+import 'entities/order_model.dart';
 
 class MyOrdersView extends StatefulWidget {
   @override
@@ -10,6 +17,35 @@ class MyOrdersView extends StatefulWidget {
 }
 
 class _MyOrdersViewState extends State<MyOrdersView> {
+  List<OrderModel> _notes = List<OrderModel>();
+
+  Future<List<OrderModel>> getOrders() async {
+    final String apiUrl = myOrderIdApi;
+    final response =
+        await http.get(apiUrl + "null12"); //null12-> deliverPerson_Id
+
+    var notes = List<OrderModel>();
+
+    if (response.statusCode == 200) {
+      var notesJson = json.decode(response.body);
+      for (var noteJson in notesJson) {
+        notes.add(OrderModel.fromJson(noteJson));
+      }
+    }
+    return notes;
+  }
+
+  @override
+  void initState() {
+    getOrders().then((value) {
+      setState(() {
+        _notes.addAll(value);
+        print(_notes[0].deliverPersonId);
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -129,6 +165,9 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                                             size: 30,
                                           ),
                                           onTap: () {
+                                            setState(() {
+                                              commonListData = _notes[index];
+                                            });
                                             //pickupdatils click
                                             Navigator.push(
                                               context,

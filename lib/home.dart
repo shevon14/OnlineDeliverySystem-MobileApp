@@ -14,7 +14,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-
   List<OrderModel> _notes = List<OrderModel>();
   List<OrderModel> _notes2 = List<OrderModel>();
 
@@ -32,7 +31,8 @@ class _HomeViewState extends State<HomeView> {
         notes.add(OrderModel.fromJson(noteJson));
       }
       for (var i = 0; i < notes.length; i++) {
-        if (preOrderId != notes[i].orderId) {
+        if (preOrderId != notes[i].orderId &&
+            notes[i].deliverPersonId == "null") {
           filterNotes.add(notes[i]);
         }
         preOrderId = notes[i].orderId;
@@ -63,7 +63,7 @@ class _HomeViewState extends State<HomeView> {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.blue,
       ),
-      body:   SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
@@ -121,85 +121,89 @@ class _HomeViewState extends State<HomeView> {
               children: <Widget>[
                 SizedBox(
                   height: 600,
-                  child: 
-                Expanded(child: new ListView.builder(
-                  shrinkWrap: true,
-                itemCount: _notes.length,  //array length
-                itemBuilder: (context, index) {
-                  return Card(
-                      child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.fastfood,
-                          color: Colors.blue,
-                          size: 40,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        SizedBox(
-                          width: 180,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(_notes[index].productId, //_notes[index].productId,    //get id number
-                                  style: TextStyle(
-                                      color: Colors.indigo[900],
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 20)),
-                              Text( _notes[index].productId, //_notes[index].address,  //get address details
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500)),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 40,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            ClipOval(
-                              child: Material(
-                                color: Colors.white10,
-                                child: InkWell(
-                                  child: Icon(
-                                    Icons.chevron_right,
-                                    color: Colors.blue,
-                                    size: 30,
-                                  ),
-                                  onTap: () {   
-                                    
-                                    // final SingupModel singup = await getOrderDetails(index);
-                  setState(() {
-                    commonListData=_notes[index];
-                  });
-                   //pickupdatils click
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              PickUpDetailView()),
-                                    );
-                                  },
+                  child: Expanded(
+                    child: new ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: _notes.length, //array length
+                        itemBuilder: (context, index) {
+                          return Card(
+                              child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.fastfood,
+                                  color: Colors.blue,
+                                  size: 40,
                                 ),
-                              ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                SizedBox(
+                                  width: 180,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                          _notes[index]
+                                              .productId, //_notes[index].productId,    //get id number
+                                          style: TextStyle(
+                                              color: Colors.indigo[900],
+                                              fontWeight: FontWeight.w900,
+                                              fontSize: 20)),
+                                      Text(
+                                          _notes[index]
+                                              .productId, //_notes[index].address,  //get address details
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500)),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 40,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    ClipOval(
+                                      child: Material(
+                                        color: Colors.white10,
+                                        child: InkWell(
+                                          child: Icon(
+                                            Icons.chevron_right,
+                                            color: Colors.blue,
+                                            size: 30,
+                                          ),
+                                          onTap: () {
+                                            setState(() {
+                                              commonListData = _notes[index];
+                                            });
+                                            //pickupdatils click
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      PickUpDetailView()),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ));
-                }),),
+                          ));
+                        }),
+                  ),
                 ),
               ],
             )
           ],
         ),
-      ), 
+      ),
     ));
   }
 }

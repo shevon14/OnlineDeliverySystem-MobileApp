@@ -1,9 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:online_delivey_system_app/home.dart';
 import 'package:online_delivey_system_app/markarriced.dart';
 import 'package:online_delivey_system_app/nav_drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'apiUrl/api.dart';
+import 'entities/order_model.dart';
+import 'entities/product_model.dart';
+import 'entities/seller_model.dart';
+import 'package:http/http.dart' as http;
 
 class MyOrderDetailView extends StatefulWidget {
   @override
@@ -86,6 +94,45 @@ class MyPickOrderData {
 }
 
 class _MyOrderDetailViewState extends State<MyOrderDetailView> {
+  List<ProductModel> itemsDetails=new List<ProductModel>();
+
+OrderModel commonListGetData= new OrderModel() ;
+SellerModel sellersDetails1 = SellerModel();
+
+//for fill seller data
+    Future<List<SellerModel>> getSellerData() async {   //get seller data by shopId 
+    final String apiUrl = sellerDataApi;
+    final response = await http.get(apiUrl+commonListGetData.shopId);
+
+    var sellersDetails = List<SellerModel>();
+
+    if (response.statusCode == 200) {
+      var notesJson = json.decode(response.body);
+        sellersDetails.add(SellerModel.fromJson(notesJson));
+    }
+    return sellersDetails;
+  }
+
+//fill 
+Future<List<ProductModel>> getOrders() async { //get all deliver orders to get produt according to order id
+    final String apiUrl = devilerDataByOrderId;
+    final response = await http.get(apiUrl+commonListGetData.orderId);
+
+    var notes = List<OrderModel>();
+
+    if (response.statusCode == 200) {
+      var notesJson = json.decode(response.body);
+      for (var noteJson in notesJson) {
+        notes.add(OrderModel.fromJson(noteJson));
+      }
+      // for (var i = 0; i < notes.length; i++) {
+      //     itemsDetails[i].availableQuantity=notes[i].quantity;
+      //   }
+      }
+    return itemsDetails; 
+  }
+  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

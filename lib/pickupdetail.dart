@@ -99,28 +99,15 @@ Map fetched_data = {
 class _PickUpDetailViewState extends State<PickUpDetailView> {
 
   List<ProductModel> itemsDetails=new List<ProductModel>();
-  //  var deliverPeson = SingupModel(
-  //                   fullName: nameController.text,
-  //                   email: emailController.text,
-  //                   conatct: nameController.text,
-  //                   drivingLicenceId: dLicenceController.text,
-  //                   vehicaleType: vehicleController.text,
-  //                   vehicaleLicenceNumber: vehicleLicenceController.text,
-  //                   password: passwordController.text,
-  //                   userType: "Deliver",
-  //                   address: "ssssssssss",
-  //                 );
-
 
 OrderModel commonListGetData= new OrderModel() ;
 SellerModel sellersDetails1 = SellerModel();
 
     Future<List<SellerModel>> getSellerData() async {   //get seller data by shopId 
     final String apiUrl = sellerDataApi;
-    final response = await http.get(apiUrl+commonListData.shopId);
+    final response = await http.get(apiUrl+commonListGetData.shopId);
 
     var sellersDetails = List<SellerModel>();
-    // var notesJson;
 
     if (response.statusCode == 200) {
       var notesJson = json.decode(response.body);
@@ -129,10 +116,10 @@ SellerModel sellersDetails1 = SellerModel();
     return sellersDetails;
   }
 
-
+//fill order data like quanty,name
   Future<List<ProductModel>> getOrders() async { //get all deliver orders to get produt according to order id
     final String apiUrl = devilerDataByOrderId;
-    final response = await http.get(apiUrl+commonListData.orderId);
+    final response = await http.get(apiUrl+commonListGetData.orderId);
 
     var notes = List<OrderModel>();
 
@@ -141,9 +128,12 @@ SellerModel sellersDetails1 = SellerModel();
       for (var noteJson in notesJson) {
         notes.add(OrderModel.fromJson(noteJson));
       }
-      // for (var i = 0; i < notes.length; i++) {
-      //     itemsDetails[i].availableQuantity=notes[i].quantity;
-      //   }
+      for (var i = 0; i < notes.length; i++) {
+          var itemsDetails_1 = ProductModel(
+            availableQuantity:notes[i].quantity,
+                  );
+                  itemsDetails.add(itemsDetails_1);
+      }
       }
     return itemsDetails; 
   }
@@ -153,7 +143,6 @@ SellerModel sellersDetails1 = SellerModel();
     final response = await http.get(apiUrl+productId);
 
     var productDetails = List<ProductModel>();
-    // var notesJson;
 
     if (response.statusCode == 200) {
       var notesJson = json.decode(response.body);
@@ -162,22 +151,55 @@ SellerModel sellersDetails1 = SellerModel();
     return productDetails[0].imgName;
   }
 
+      Future <bool> updatePickOrder() async {
+    final String apiUrl = pickOrderApi;
+    final response = await http.post(apiUrl+commonListGetData.orderId, body: {
+      "deliverPersonId": "123333333333333333333333333333333333333333333333333333",
+      "state":"Picked Order",
+    });
+    bool notesJson=false;
+
+    if (response.statusCode == 200) {
+        notesJson=true;
+    }
+    return notesJson;
+  }
+
+Future <bool> updateCompleteState() async {
+    final String apiUrl = deliverComplete;
+    final response = await http.post(apiUrl+commonListGetData.orderId, body: {
+      "state":"Order Completed",
+    });
+    bool notesJson=false;
+
+    if (response.statusCode == 200) {
+        notesJson=true;
+    }
+    return notesJson;
+  }
+  
+
  @override
   void initState() {
-    getSellerData().then((value) {
-      setState(() {
-        sellersDetails1=(value[0]);
-        print(sellersDetails1.address); //sellerdetails
-      });
-    });
-    
     commonListGetData=commonListData;// other details customer name ..(customer data..)
+    // updatePickOrder().then((value1){
+    //    setState(() {
+    //     print(value1); //sellerdetails
+    //   });
+    // });
+    // getSellerData().then((value) {
+    //   setState(() {
+    //     sellersDetails1=(value[0]);
+    //     print(sellersDetails1.address); //sellerdetails
+    //   });
+    // });
+    
 
-    getOrders().then((value1){
-       setState(() {
-        print(value1[0]); //sellerdetails
-      });
-    });
+    // getOrders().then((value1){
+    //    setState(() {
+    //     print(value1[0].availableQuantity); //itemdata details
+    //   });
+    // });
     super.initState();
   }
 
