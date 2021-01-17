@@ -5,6 +5,7 @@ import 'package:online_delivey_system_app/nav_drawer.dart';
 import 'package:http/http.dart' as http;
 import 'package:online_delivey_system_app/pickupdetail.dart';
 import 'apiUrl/api.dart';
+import 'common/common_data.dart';
 import 'entities/order_model.dart';
 
 class HomeView extends StatefulWidget {
@@ -13,8 +14,10 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+
   List<OrderModel> _notes = List<OrderModel>();
   List<OrderModel> _notes2 = List<OrderModel>();
+
   Future<List<OrderModel>> getOrders() async {
     final String apiUrl = orderPickApi;
     final response = await http.get(apiUrl);
@@ -168,7 +171,13 @@ class _HomeViewState extends State<HomeView> {
                                     color: Colors.blue,
                                     size: 30,
                                   ),
-                                  onTap: () {    //pickupdatils click
+                                  onTap: () {   
+                                    
+                                    // final SingupModel singup = await getOrderDetails(index);
+                  setState(() {
+                    commonListData=_notes[index];
+                  });
+                   //pickupdatils click
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:online_delivey_system_app/home.dart';
@@ -5,6 +7,14 @@ import 'package:online_delivey_system_app/myorderdetails.dart';
 import 'package:online_delivey_system_app/myorders.dart';
 import 'package:online_delivey_system_app/nav_drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'apiUrl/api.dart';
+import 'common/common_data.dart';
+import 'entities/order_model.dart';
+import 'package:http/http.dart' as http;
+
+import 'entities/product_model.dart';
+import 'entities/seller_model.dart';
 
 class PickUpDetailView extends StatefulWidget {
   @override
@@ -21,11 +31,11 @@ void customLaunch(command) async {
 
 //array details for order pick up  - meke get.... kiyana tikata modelen ekan details aran danna
 class PickOrderData {
-  Map fetched_data = {
-    "sellerName": "getSellerName",
+Map fetched_data = {
+    "sellerName": "commonaddress",
     "sellerAddress": "getSellerAddress",
     "sellerContactNumber": "getSellerContactNumber",
-    "customerName": "getcustomerName",
+    "customerName": 'commonListData1.customerName',
     "customerAddress": "getcustomerAddress",
     "customerContactNumber": "getcustomerContactNumber",
     "items": [
@@ -41,10 +51,9 @@ class PickOrderData {
   List _item;
 
 //function to fetch the data
-  PickOrderData() {
+  PickOrderData()  {
     _item = fetched_data["items"];
   }
-
   String getSellerName() {
     return fetched_data["sellerName"];
     // _data[index]["sellerName"];
@@ -88,6 +97,91 @@ class PickOrderData {
 }
 
 class _PickUpDetailViewState extends State<PickUpDetailView> {
+
+  List<ProductModel> itemsDetails=new List<ProductModel>();
+  //  var deliverPeson = SingupModel(
+  //                   fullName: nameController.text,
+  //                   email: emailController.text,
+  //                   conatct: nameController.text,
+  //                   drivingLicenceId: dLicenceController.text,
+  //                   vehicaleType: vehicleController.text,
+  //                   vehicaleLicenceNumber: vehicleLicenceController.text,
+  //                   password: passwordController.text,
+  //                   userType: "Deliver",
+  //                   address: "ssssssssss",
+  //                 );
+
+
+OrderModel commonListGetData= new OrderModel() ;
+SellerModel sellersDetails1 = SellerModel();
+
+    Future<List<SellerModel>> getSellerData() async {   //get seller data by shopId 
+    final String apiUrl = sellerDataApi;
+    final response = await http.get(apiUrl+commonListData.shopId);
+
+    var sellersDetails = List<SellerModel>();
+    // var notesJson;
+
+    if (response.statusCode == 200) {
+      var notesJson = json.decode(response.body);
+        sellersDetails.add(SellerModel.fromJson(notesJson));
+    }
+    return sellersDetails;
+  }
+
+
+  Future<List<ProductModel>> getOrders() async { //get all deliver orders to get produt according to order id
+    final String apiUrl = devilerDataByOrderId;
+    final response = await http.get(apiUrl+commonListData.orderId);
+
+    var notes = List<OrderModel>();
+
+    if (response.statusCode == 200) {
+      var notesJson = json.decode(response.body);
+      for (var noteJson in notesJson) {
+        notes.add(OrderModel.fromJson(noteJson));
+      }
+      // for (var i = 0; i < notes.length; i++) {
+      //     itemsDetails[i].availableQuantity=notes[i].quantity;
+      //   }
+      }
+    return itemsDetails; 
+  }
+
+    Future <String> getProductData(String productId) async {//img by product
+    final String apiUrl = singleProductDataApi;
+    final response = await http.get(apiUrl+productId);
+
+    var productDetails = List<ProductModel>();
+    // var notesJson;
+
+    if (response.statusCode == 200) {
+      var notesJson = json.decode(response.body);
+        productDetails.add(ProductModel.fromJson(notesJson));
+    }
+    return productDetails[0].imgName;
+  }
+
+ @override
+  void initState() {
+    getSellerData().then((value) {
+      setState(() {
+        sellersDetails1=(value[0]);
+        print(sellersDetails1.address); //sellerdetails
+      });
+    });
+    
+    commonListGetData=commonListData;// other details customer name ..(customer data..)
+
+    getOrders().then((value1){
+       setState(() {
+        print(value1[0]); //sellerdetails
+      });
+    });
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -465,3 +559,5 @@ class _PickUpDetailViewState extends State<PickUpDetailView> {
             ))));
   }
 }
+
+
