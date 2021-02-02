@@ -239,48 +239,58 @@ class _PickUpDetailViewState extends State<PickUpDetailView> {
     super.initState();
   }
 
-  String getSellerName() {
+   String getSellerName() {
+     var data=sellersDetails1.shopName==null? "":sellersDetails1.shopName;
     // return fetched_data["sellerName"];
-    return sellersDetails1.shopName;
+    return data;
     // _data[index]["sellerName"];
   }
 
   String getSellerAddress() {
-    return sellersDetails1.address;
+     var data=sellersDetails1.address==null? "":sellersDetails1.address;
+    return data;
     // return fetched_data["sellerAddress"];
   }
 
   String getSellerConatctNumber() {
-    return sellersDetails1.personalPhone;
+     var data=sellersDetails1.personalPhone==null? "":sellersDetails1.personalPhone;
+    return data;
     // return fetched_data["sellerContactNumber"];
   }
 
   String getCustomerName() {
-    return commonListGetData.customerName;
+     var data=commonListGetData.customerName==null? "":commonListGetData.customerName;
+    return data;
   }
 
   String getCustomerAddress() {
-    return commonListGetData.address;
+     var data=commonListGetData.address==null? "":commonListGetData.address;
+    return data;
   }
 
   String getCustomerConatctNumber() {
-    return commonListGetData.mobileNumber;
+     var data=commonListGetData.mobileNumber==null? "":commonListGetData.mobileNumber;
+    return data;
   }
 
   String getQuantity(int index) {
-    return itemsDetails[index].availableQuantity;
+     var data=itemsDetails[index].availableQuantity==null? "":itemsDetails[index].availableQuantity;
+    return data;
   }
 
   String getItemName(int index) {
-    return itemsDetails[index].productName;
+     var data=itemsDetails[index].productName==null? "":itemsDetails[index].productName;
+    return data;
   }
 
   String getImg(int index) {
-    return itemsDetails[index].imgName;
+     var data=itemsDetails[index].imgName==null? "":itemsDetails[index].imgName;
+    return data;
   }
 
   int getItemsLength() {
-    return itemsDetails.length;
+     var data=itemsDetails.length==null? 0:itemsDetails.length;
+    return data;
   }
 
   @override
