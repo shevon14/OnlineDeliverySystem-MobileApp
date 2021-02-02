@@ -22,7 +22,7 @@ class _MyOrdersViewState extends State<MyOrdersView> {
   Future<List<OrderModel>> getOrders() async {
     final String apiUrl = myOrderIdApi;
     final response =
-        await http.get(apiUrl + "null12"); //null12-> deliverPerson_Id
+        await http.get(apiUrl + userDetails.id); //null12-> deliverPerson_Id
 
     var notes = List<OrderModel>();
 
@@ -116,7 +116,7 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                   child: Expanded(
                     child: new ListView.builder(
                         shrinkWrap: true,
-                        itemCount: 3, //array length
+                        itemCount: _notes.length, //array length
                         itemBuilder: (context, index) {
                           return Card(
                               child: Padding(
@@ -137,12 +137,15 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Text("#12345", //get id number
+                                      Text( _notes[index]
+                                              .productId,  //get id number
                                           style: TextStyle(
                                               color: Colors.indigo[900],
                                               fontWeight: FontWeight.w900,
                                               fontSize: 20)),
-                                      Text("No5, Negombo", //get address details
+                                      Text(
+                                         _notes[index]
+                                              .address, //get address details
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.w500)),

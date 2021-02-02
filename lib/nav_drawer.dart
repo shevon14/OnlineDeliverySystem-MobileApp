@@ -5,6 +5,9 @@ import 'package:online_delivey_system_app/myearnigs.dart';
 import 'package:online_delivey_system_app/myorders.dart';
 import 'package:online_delivey_system_app/myprofileview.dart';
 
+import 'common/common_data.dart';
+import 'entities/userData_model.dart';
+
 class NavDrawer extends StatefulWidget {
   @override
   _NavDrawerState createState() => _NavDrawerState();
@@ -12,8 +15,8 @@ class NavDrawer extends StatefulWidget {
 
 class MyDrawerDetails {
   Map fetched_data = {
-    "Name": "Sample Name",
-    "Email": "sample@gmail.com",
+    "Name": userDetails.fullName,
+    "Email": userDetails.email,
   };
 
 //function to fetch the data
@@ -27,6 +30,8 @@ class MyDrawerDetails {
 }
 
 class _NavDrawerState extends State<NavDrawer> {
+  // UserDataModel userDetails1 =new UserDataModel();
+  // userDetails1=userDetails;
   @override
   Widget build(BuildContext context) {
     return Drawer(

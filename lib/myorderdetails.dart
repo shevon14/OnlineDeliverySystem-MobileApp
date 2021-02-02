@@ -8,6 +8,7 @@ import 'package:online_delivey_system_app/nav_drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'apiUrl/api.dart';
+import 'common/common_data.dart';
 import 'entities/order_model.dart';
 import 'entities/product_model.dart';
 import 'entities/seller_model.dart';
@@ -26,72 +27,72 @@ void customLaunch(command) async {
   }
 }
 
-class MyPickOrderData {
-  Map fetched_data = {
-    "sellerName": "getSellerName",
-    "sellerAddress": "getSellerAddress",
-    "sellerContactNumber": "getSellerContactNumber",
-    "customerName": "getcustomerName",
-    "customerAddress": "getcustomerAddress",
-    "customerContactNumber": "getcustomerContactNumber",
-    "items": [
-        {
-          //ekama order eke products wadi weddi meke length eka wadi karala enna danna
-          "itemName": "Vegetable",
-          "quantity": "100 g",
-          "image":
-              "https://fyi.extension.wisc.edu/safefood/files/2019/04/CDC_produce.png"
-        },
-    ]
-  };
-  List _item;
+// class MyPickOrderData {
+//   Map fetched_data = {
+//     "sellerName": "getSellerName",
+//     "sellerAddress": "getSellerAddress",
+//     "sellerContactNumber": "getSellerContactNumber",
+//     "customerName": "getcustomerName",
+//     "customerAddress": "getcustomerAddress",
+//     "customerContactNumber": "getcustomerContactNumber",
+//     "items": [
+//         {
+//           //ekama order eke products wadi weddi meke length eka wadi karala enna danna
+//           "itemName": "Vegetable",
+//           "quantity": "100 g",
+//           "image":
+//               "https://fyi.extension.wisc.edu/safefood/files/2019/04/CDC_produce.png"
+//         },
+//     ]
+//   };
+//   List _item;
 
-//function to fetch the data
-  MyPickOrderData() {
-    _item = fetched_data["items"];
-  }
+// //function to fetch the data
+//   MyPickOrderData() {
+//     _item = fetched_data["items"];
+//   }
 
-  String getSellerName() {
-    return fetched_data["sellerName"];
-    // _data[index]["sellerName"];
-  }
+//   String getSellerName() {
+//     return fetched_data["sellerName"];
+//     // _data[index]["sellerName"];
+//   }
 
-  String getSellerAddress() {
-    return fetched_data["sellerAddress"];
-  }
+//   String getSellerAddress() {
+//     return fetched_data["sellerAddress"];
+//   }
 
-  String getSellerConatctNumber() {
-    return fetched_data["sellerContactNumber"];
-  }
+//   String getSellerConatctNumber() {
+//     return fetched_data["sellerContactNumber"];
+//   }
 
-  String getCustomerName() {
-    return fetched_data["customerName"];
-  }
+//   String getCustomerName() {
+//     return fetched_data["customerName"];
+//   }
 
-  String getCustomerAddress() {
-    return fetched_data["customerAddress"];
-  }
+//   String getCustomerAddress() {
+//     return fetched_data["customerAddress"];
+//   }
 
-  String getCustomerConatctNumber() {
-    return fetched_data["customerContactNumber"];
-  }
+//   String getCustomerConatctNumber() {
+//     return fetched_data["customerContactNumber"];
+//   }
 
-  String getQuantity(int index) {
-    return _item[index]["itemName"];
-  }
+//   String getQuantity(int index) {
+//     return _item[index]["itemName"];
+//   }
 
-  String getItemName(int index) {
-    return _item[index]["quantity"];
-  }
+//   String getItemName(int index) {
+//     return _item[index]["quantity"];
+//   }
 
-  String getImg(int index) {
-    return _item[index]["image"];
-  }
+//   String getImg(int index) {
+//     return _item[index]["image"];
+//   }
 
-  int getItemsLength() {
-    return _item.length;
-  }
-}
+//   int getItemsLength() {
+//     return _item.length;
+//   }
+// }
 
 class _MyOrderDetailViewState extends State<MyOrderDetailView> {
   List<ProductModel> itemsDetails=new List<ProductModel>();
@@ -114,9 +115,27 @@ SellerModel sellersDetails1 = SellerModel();
   }
 
 //fill 
-Future<List<ProductModel>> getOrders() async { //get all deliver orders to get produt according to order id
+// Future<List<ProductModel>> getOrders() async { //get all deliver orders to get produt according to order id
+//     final String apiUrl = devilerDataByOrderId;
+//     final response = await http.get(apiUrl+commonListGetData.orderId);
+
+//     var notes = List<OrderModel>();
+
+//     if (response.statusCode == 200) {
+//       var notesJson = json.decode(response.body);
+//       for (var noteJson in notesJson) {
+//         notes.add(OrderModel.fromJson(noteJson));
+//       }
+//       // for (var i = 0; i < notes.length; i++) {
+//       //     itemsDetails[i].availableQuantity=notes[i].quantity;
+//       //   }
+//       }
+//     return itemsDetails; 
+//   }
+    Future<List<ProductModel>> getOrders() async {
+    //get all deliver orders to get produt according to order id
     final String apiUrl = devilerDataByOrderId;
-    final response = await http.get(apiUrl+commonListGetData.orderId);
+    final response = await http.get(apiUrl + commonListGetData.orderId);
 
     var notes = List<OrderModel>();
 
@@ -125,13 +144,128 @@ Future<List<ProductModel>> getOrders() async { //get all deliver orders to get p
       for (var noteJson in notesJson) {
         notes.add(OrderModel.fromJson(noteJson));
       }
-      // for (var i = 0; i < notes.length; i++) {
-      //     itemsDetails[i].availableQuantity=notes[i].quantity;
-      //   }
+      for (var i = 0; i < notes.length; i++) {
+        List<ProductModel> productDetails = await getImgData(notes[i].productId);
+        var path = productDetails[0].imgName;
+        var newPath = path.substring(0, 7) +
+            networkIpAddress +
+            path.substring(16, path.length);
+
+        var itemsDetails_1 = ProductModel(
+            id: notes[i].productId,
+            productName: notes[i].productName,
+            availableQuantity: notes[i].quantity,
+            imgName: newPath);
+        itemsDetails.add(itemsDetails_1);
       }
-    return itemsDetails; 
+    }
+
+    return itemsDetails;
   }
   
+   Future<List<ProductModel>> getImgData(String productId) async {
+  final String apiUrl_1 = singleProductDataApi;
+        final response_1 = await http.get(apiUrl_1 +productId);
+
+        var productDetails = List<ProductModel>();
+
+        if (response_1.statusCode == 200) {
+          var notesJson_1 = json.decode(response_1.body);
+          productDetails.add(ProductModel.fromJson(notesJson_1[0]));
+        }
+        return productDetails;
+        }
+
+
+        Future<bool> updateArrivedOrder() async {
+    final String apiUrl = pickOrderApi;
+    final response = await http.post(apiUrl + commonListGetData.orderId, body: {
+      "deliverPersonId":userDetails.id,
+      "state": "Mark Arrived",
+    });
+    bool notesJson = false;
+
+    if (response.statusCode == 200) {
+      notesJson = true;
+    }
+    return notesJson;
+  }
+
+
+          @override
+  void initState() {
+    commonListGetData =
+        commonListData; // other details customer name ..(customer data..)
+    // updatePickOrder().then((value1){
+    //    setState(() {
+    //     print(value1); //sellerdetails
+    //   });
+    // });
+   getSellerData().then((value) {
+      setState(() {
+        sellersDetails1 = (value[0]);
+        print(sellersDetails1.address); //sellerdetails
+      });
+    });
+
+    getOrders().then((value1) {
+      setState(() {
+        itemsDetails = value1;
+        markArricedItemsDetails=itemsDetails;
+        print(value1[0].availableQuantity); //itemdata details
+      });
+    });
+
+    // getProductData(itemsDetails[0].id).then((value1){
+    //    setState(() {
+    //      aaa=(value1);
+    //     // print(value1[0].availableQuantity); //itemdata details
+    //   });
+    // });
+    super.initState();
+  }
+
+
+  String getSellerName() {
+    return sellersDetails1.name;
+    // _data[index]["sellerName"];
+  }
+
+  String getSellerAddress() {
+    return sellersDetails1.address;
+  }
+
+  String getSellerConatctNumber() {
+    return sellersDetails1.officePhone;
+  }
+
+  String getCustomerName() {
+    return commonListGetData.customerName;
+  }
+
+  String getCustomerAddress() {
+    return commonListGetData.address;
+  }
+
+  String getCustomerConatctNumber() {
+    return commonListGetData.mobileNumber;
+  }
+
+  String getQuantity(int index) {
+    return itemsDetails[index].availableQuantity;
+  }
+
+  String getItemName(int index) {
+    return itemsDetails[index].productName;
+  }
+
+  String getImg(int index) {
+    return itemsDetails[index].imgName;
+  }
+
+  int getItemsLength() {
+    return itemsDetails.length;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +310,7 @@ Future<List<ProductModel>> getOrders() async { //get all deliver orders to get p
                         child: Column(
                           children: <Widget>[
                             ListTile(
-                              title: Text(MyPickOrderData().getCustomerName(),
+                              title: Text(getCustomerName(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600)),
@@ -192,7 +326,7 @@ Future<List<ProductModel>> getOrders() async { //get all deliver orders to get p
                             ),
                             ListTile(
                               title: Text(
-                                  MyPickOrderData().getCustomerAddress(),
+                                  getCustomerAddress(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600)),
@@ -271,7 +405,7 @@ Future<List<ProductModel>> getOrders() async { //get all deliver orders to get p
                         child: Column(
                           children: <Widget>[
                             ListTile(
-                              title: Text(MyPickOrderData().getSellerName(),
+                              title: Text(getSellerName(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600)),
@@ -287,7 +421,7 @@ Future<List<ProductModel>> getOrders() async { //get all deliver orders to get p
                             ),
                             ListTile(
                               title: Text(
-                                  MyPickOrderData().getSellerAddress(),
+                                  getSellerAddress(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600)),
@@ -367,7 +501,7 @@ Future<List<ProductModel>> getOrders() async { //get all deliver orders to get p
                         //build list view
                         ListView.builder(
                             shrinkWrap: true,
-                            itemCount: MyPickOrderData().getItemsLength(),
+                            itemCount: getItemsLength(),
                             itemBuilder: (context, index) {
                               return
                                   //listview card
@@ -382,7 +516,7 @@ Future<List<ProductModel>> getOrders() async { //get all deliver orders to get p
                                         width: 50,
                                         child: DecoratedBox(
                                           child: Image.network(
-                                            MyPickOrderData().getImg(index),
+                                            getImg(index),
                                             width: 100,
                                             height: 100,
                                             fit: BoxFit.cover,
@@ -418,14 +552,14 @@ Future<List<ProductModel>> getOrders() async { //get all deliver orders to get p
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
                                           //item name
-                                          Text(" :"+ MyPickOrderData().getItemName(index),
+                                          Text(" :"+ getItemName(index),
                                               style: TextStyle(
                                                   color: Colors.black)),
                                           SizedBox(
                                             height: 5,
                                           ),
                                           //item quantity
-                                          Text(" :" + MyPickOrderData().getQuantity(index),
+                                          Text(" :" + getQuantity(index),
                                               style: TextStyle(
                                                   color: Colors.black)),
                                         ],
@@ -469,13 +603,18 @@ Future<List<ProductModel>> getOrders() async { //get all deliver orders to get p
                                                     color: Colors.indigo[900],
                                                     fontWeight:
                                                         FontWeight.bold)),
-                                            onPressed: (() {
+                                            onPressed: (() async {
+                                              final bool user =
+                                                  await updateArrivedOrder();
+
+                                              setState(() {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         MarkArrivedView()),
                                               );
+                                               });
                                             })),
                                       ),
                                       Padding(

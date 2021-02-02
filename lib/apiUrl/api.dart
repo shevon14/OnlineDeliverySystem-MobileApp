@@ -1,7 +1,8 @@
-var networkIpAddress= "192.168.8.103";
+var networkIpAddress= "192.168.8.100";
 
 var deliversRegApi="http://"+networkIpAddress+":3000/delivers/register";
 var deliversLoginApi="http://"+networkIpAddress+":3000/delivers/login";
+var deliversLoginUserDataApi="http://"+networkIpAddress+":3000/delivers/";
 var devilerDataByOrderId="http://"+networkIpAddress+":3000/deliverycart/findOrderbyOrderId/";
 var deliverComplete="http://"+networkIpAddress+":3000/deliverycart/updateState/";
 var myOrderIdApi="http://"+networkIpAddress+":3000/deliverycart/myorders/";

@@ -154,7 +154,7 @@ class _HomeViewState extends State<HomeView> {
                                               fontSize: 20)),
                                       Text(
                                           _notes[index]
-                                              .productId, //_notes[index].address,  //get address details
+                                              .address, //_notes[index].address,  //get address details
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.w500)),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:online_delivey_system_app/home.dart';
@@ -5,8 +7,11 @@ import 'package:online_delivey_system_app/signup.dart';
 import 'package:online_delivey_system_app/ui_curve_design.dart';
 
 import 'apiUrl/api.dart';
+import 'common/common_data.dart';
 import 'entities/singup_model.dart';
 import 'package:http/http.dart' as http;
+
+import 'entities/userData_model.dart';
 
 
 class SignInView extends StatefulWidget {
@@ -45,7 +50,7 @@ class MyCustomForm extends StatefulWidget {
 //For the Form and Validation part
 class MyCustomFormState extends State<MyCustomForm> {
 
-  SingupModel _singup;
+  bool _singup;
 
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
@@ -150,7 +155,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     password: passwordController.text,
                   );
 
-                   final SingupModel singup = await createSingup(deliverPeson);
+                   final bool singup = await createSingup(deliverPeson);
                   setState(() {
                     _singup = singup;
                   });
@@ -216,8 +221,10 @@ class MyCustomFormState extends State<MyCustomForm> {
 }
 
 
- Future<SingupModel> createSingup(SingupModel userData) async {
+ Future<bool> createSingup(SingupModel userData) async {
     final String apiUrl = deliversLoginApi;
+    final String apiUrl_1 = deliversLoginUserDataApi;
+var singupModel = List<UserDataModel>();
 
     bool login=false;
     
@@ -225,14 +232,21 @@ class MyCustomFormState extends State<MyCustomForm> {
       "email": userData.email,
       "password": userData.password,
     });
+    final response_1 = await http.get(apiUrl_1+userData.email);
+    
 
     if (response.statusCode == 401) {
       final String responseString = response.body;
- login=true;
-      return singupModelFromJson(responseString);
+      login=true;
+       if (response_1.statusCode == 200) {
+      var notesJson = json.decode(response_1.body);
+      singupModel.add(UserDataModel.fromJson(notesJson));
+      userDetails = singupModel[0];
+      print(userDetails);
+      
+      return true;
     } else {
       return null;
     }
   }
-
-              
+ }

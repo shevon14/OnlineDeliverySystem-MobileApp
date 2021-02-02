@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:online_delivey_system_app/home.dart';
 import 'package:online_delivey_system_app/nav_drawer.dart';
 
+import 'common/common_data.dart';
+
 class MyProfileView extends StatefulWidget {
   @override
   _MyProfileViewState createState() => _MyProfileViewState();
@@ -10,12 +12,12 @@ class MyProfileView extends StatefulWidget {
 //array details for order complete - modelen ekan details aran danna click kalma id ekata
 class MyProfileData {
   Map fetched_data = {
-    "Name": "sample",
-    "Email": "sample@gamil.cm",
-    "Conatact": "076664544",
-    "DrivingLicencesID": "g123456",
-    "VehicleType": "Car",
-    "VehicleNo": "WP-4523",
+    "Name": userDetails.fullName,
+    "Email": userDetails.email,
+    "Conatact": userDetails.conatct,
+    "DrivingLicencesID": userDetails.drivingLicenceId,
+    "VehicleType": userDetails.vehicaleType,
+    "VehicleNo": userDetails.vehicaleLicenceNumber,
   };
 
 //function to fetch the data
