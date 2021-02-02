@@ -19,20 +19,44 @@ class MyOrdersView extends StatefulWidget {
 class _MyOrdersViewState extends State<MyOrdersView> {
   List<OrderModel> _notes = List<OrderModel>();
 
-  Future<List<OrderModel>> getOrders() async {
+  // Future<List<OrderModel>> getOrders() async {
+  //   final String apiUrl = myOrderIdApi;
+  //   final response =
+  //       await http.get(apiUrl + userDetails.id); //null12-> deliverPerson_Id
+
+  //   var notes = List<OrderModel>();
+
+  //   if (response.statusCode == 200) {
+  //     var notesJson = json.decode(response.body);
+  //     for (var noteJson in notesJson) {
+  //       notes.add(OrderModel.fromJson(noteJson));
+  //     }
+  //   }
+  //   return notes;
+  // }
+
+    Future<List<OrderModel>> getOrders() async {
     final String apiUrl = myOrderIdApi;
-    final response =
-        await http.get(apiUrl + userDetails.id); //null12-> deliverPerson_Id
+    final response = await http.get(apiUrl + userDetails.id);
 
     var notes = List<OrderModel>();
+    var filterNotes = List<OrderModel>();
+    String preOrderId;
 
     if (response.statusCode == 200) {
       var notesJson = json.decode(response.body);
       for (var noteJson in notesJson) {
         notes.add(OrderModel.fromJson(noteJson));
       }
+      for (var i = 0; i < notes.length; i++) {
+        if (preOrderId != notes[i].orderId &&
+            notes[i].state == "Picked Order") {
+          filterNotes.add(notes[i]);
+        }
+        preOrderId = notes[i].orderId;
+      }
     }
-    return notes;
+    return filterNotes;
   }
 
   @override
