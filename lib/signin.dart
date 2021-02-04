@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:online_delivey_system_app/home.dart';
 import 'package:online_delivey_system_app/signup.dart';
 import 'package:online_delivey_system_app/ui_curve_design.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'apiUrl/api.dart';
 import 'common/common_data.dart';
@@ -12,7 +13,6 @@ import 'entities/singup_model.dart';
 import 'package:http/http.dart' as http;
 
 import 'entities/userData_model.dart';
-
 
 class SignInView extends StatefulWidget {
   @override
@@ -50,7 +50,7 @@ class MyCustomForm extends StatefulWidget {
 //For the Form and Validation part
 class MyCustomFormState extends State<MyCustomForm> {
 
-  bool _singup;
+  bool _singup;   
 
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
@@ -156,6 +156,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                   );
 
                    final bool singup = await createSingup(deliverPeson);
+                   SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.setString('isLogIn','Yes');
                   setState(() {
                     _singup = singup;
                   });
