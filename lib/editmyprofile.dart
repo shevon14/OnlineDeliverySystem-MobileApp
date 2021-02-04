@@ -1,5 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:online_delivey_system_app/myprofileview.dart';
+
+import 'apiUrl/api.dart';
+import 'common/common_data.dart';
+import 'entities/singup_model.dart';
+import 'package:http/http.dart' as http;
+
+import 'entities/userData_model.dart';
 
 class EditProfile extends StatelessWidget {
   @override
@@ -29,8 +38,82 @@ class MyCustomForm extends StatefulWidget {
   }
 }
 
+
+class MyProfileData {
+  Map fetched_data = {
+    "Name": userDetails.fullName,
+    "Email": userDetails.email,
+    "Conatact": userDetails.conatct,
+    "DrivingLicencesID": userDetails.drivingLicenceId,
+    "VehicleType": userDetails.vehicaleType,
+    "VehicleNo": userDetails.vehicaleLicenceNumber,
+  };
+
+//function to fetch the data
+  String getName() {
+    return fetched_data["Name"];
+  }
+
+  String getEmail() {
+    return fetched_data["Email"];
+  }
+
+  String getConatact() {
+    return fetched_data["Conatact"];
+  }
+
+  String getDrivingLicencesID() {
+    return fetched_data["DrivingLicencesID"];
+  }
+
+  String getVehicleType() {
+    return fetched_data["VehicleType"];
+  }
+
+  String getVehicleNo() {
+    return fetched_data["VehicleNo"];
+  }
+}
+
 //Form and Validation part ekata
 class MyCustomFormState extends State<MyCustomForm> {
+  SingupModel _singup;
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController contactController = TextEditingController();
+  final TextEditingController dLicenceController = TextEditingController();
+  final TextEditingController vehicleController = TextEditingController();
+  final TextEditingController vehicleLicenceController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+
+       Future<SingupModel> updateProfile(SingupModel userData) async {
+    final String apiUrl = updateProfileData;
+    final response = await http.post(apiUrl + userDetails.id, body: {
+      "full_name": userData.fullName,
+      "email": userData.email,
+      "drivingLicenceId": userData.drivingLicenceId,
+      "vehicaleType": userData.vehicaleType,
+      "vehicaleLicenceNumber": userData.vehicaleLicenceNumber,
+      //"password": userData.password,
+      "user_type": userData.userType,
+      "conatct": userData.conatct,
+      "address": userData.address
+    });
+    
+
+    if (response.statusCode == 200) {
+     final String responseString = response.body;
+     final bool singup1 = await updateSingupData(userData);
+
+      return singupModelFromJson(responseString);
+    } else {
+      return null;
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,11 +122,11 @@ class MyCustomFormState extends State<MyCustomForm> {
           child: Padding(
             padding: EdgeInsets.only(),
             child: TextField(
-              //controller: nameController,
+              controller: nameController,
               keyboardType: TextInputType.text,
               style: TextStyle(color: Theme.of(context).accentColor),
               decoration: InputDecoration(
-                hintText: "Name",
+                hintText: MyProfileData().getName(),
                 hintStyle:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                 enabledBorder: UnderlineInputBorder(
@@ -66,7 +149,7 @@ class MyCustomFormState extends State<MyCustomForm> {
           child: Padding(
             padding: EdgeInsets.only(),
             child: TextField(
-              //controller: emailController,
+              controller: emailController,
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(color: Theme.of(context).accentColor),
               decoration: InputDecoration(
@@ -95,11 +178,11 @@ class MyCustomFormState extends State<MyCustomForm> {
           child: Padding(
             padding: EdgeInsets.only(),
             child: TextField(
-              //controller: contactController,
+              controller: contactController,
               keyboardType: TextInputType.number,
               style: TextStyle(color: Theme.of(context).accentColor),
               decoration: InputDecoration(
-                hintText: "Contact Number",
+                hintText: MyProfileData().getConatact(),
                 hintStyle:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                 enabledBorder: UnderlineInputBorder(
@@ -124,11 +207,11 @@ class MyCustomFormState extends State<MyCustomForm> {
           child: Padding(
             padding: EdgeInsets.only(),
             child: TextField(
-              //controller: dLicenceController,
+              controller: dLicenceController,
               keyboardType: TextInputType.number,
               style: TextStyle(color: Theme.of(context).accentColor),
               decoration: InputDecoration(
-                hintText: "Driving Licence ID Number",
+                hintText: MyProfileData().getDrivingLicencesID(),
                 hintStyle:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                 enabledBorder: UnderlineInputBorder(
@@ -153,11 +236,11 @@ class MyCustomFormState extends State<MyCustomForm> {
           child: Padding(
             padding: EdgeInsets.only(),
             child: TextField(
-              //controller: vehicleController,
+              controller: vehicleController,
               keyboardType: TextInputType.text,
               style: TextStyle(color: Theme.of(context).accentColor),
               decoration: InputDecoration(
-                hintText: "Vehicle Type",
+                hintText: MyProfileData().getVehicleType(),
                 hintStyle:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                 enabledBorder: UnderlineInputBorder(
@@ -182,11 +265,11 @@ class MyCustomFormState extends State<MyCustomForm> {
           child: Padding(
             padding: EdgeInsets.only(),
             child: TextField(
-              //controller: vehicleLicenceController,
+              controller: vehicleLicenceController,
               keyboardType: TextInputType.number,
               style: TextStyle(color: Theme.of(context).accentColor),
               decoration: InputDecoration(
-                hintText: "Vehicle Licence number",
+                hintText: MyProfileData().getVehicleNo(),
                 hintStyle:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                 enabledBorder: UnderlineInputBorder(
@@ -211,7 +294,7 @@ class MyCustomFormState extends State<MyCustomForm> {
           child: Padding(
             padding: EdgeInsets.only(),
             child: TextField(
-              //controller: passwordController,
+              controller: passwordController,
               keyboardType: TextInputType.visiblePassword,
               style: TextStyle(color: Theme.of(context).accentColor),
               decoration: InputDecoration(
@@ -242,7 +325,24 @@ class MyCustomFormState extends State<MyCustomForm> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
             child: Text(' Save ', style: TextStyle(color: Colors.blue)),
-            onPressed: (() {
+            onPressed: (() async {
+                  var deliverPeson = SingupModel(
+                    fullName: nameController.text,
+                    email: emailController.text,
+                    conatct: nameController.text,
+                    drivingLicenceId: dLicenceController.text,
+                    vehicaleType: vehicleController.text,
+                    vehicaleLicenceNumber: vehicleLicenceController.text,
+                   // password: passwordController.text,
+                    userType: "Deliver",
+                    address: "ssssssssss",
+                  );
+
+                  final SingupModel singup = await updateProfile(deliverPeson);
+                  
+                  setState(() {
+                    _singup = singup;
+                  }); 
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => MyProfileView()),
@@ -252,3 +352,23 @@ class MyCustomFormState extends State<MyCustomForm> {
     );
   }
 }
+
+ Future<bool> updateSingupData(SingupModel userData) async {
+    final String apiUrl_1 = deliversLoginUserDataApi;
+var singupModel = List<UserDataModel>();
+
+    bool login=false;
+
+    final response_1 = await http.get(apiUrl_1+userDetails.email);
+
+       if (response_1.statusCode == 200) {
+      var notesJson = json.decode(response_1.body);
+      singupModel.add(UserDataModel.fromJson(notesJson));
+      userDetails = singupModel[0];
+      print(userDetails);
+      return true;
+    } else {
+      return null;
+    }
+  }
+

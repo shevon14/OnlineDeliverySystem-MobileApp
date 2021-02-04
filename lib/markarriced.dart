@@ -114,7 +114,9 @@ class _MarkArrivedViewState extends State<MarkArrivedView> {
   int getYourEarnings(){
     var total=int.parse(commonListGetData.total);
     var uprice= int.parse(commonListGetData.uniPrice);
-    return (total-uprice);
+    var earn1=total-uprice;
+    getArricedEarn=earn1;
+    return (earn1);
   }
 
   String getQuantity(int index) {

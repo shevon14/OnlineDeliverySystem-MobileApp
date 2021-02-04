@@ -7,3 +7,4 @@ OrderModel commonListData =new OrderModel();
 UserDataModel userDetails =new UserDataModel();
 List<ProductModel> markArricedItemsDetails=new List<ProductModel>();
 int commonListDataIndex;
+int getArricedEarn;

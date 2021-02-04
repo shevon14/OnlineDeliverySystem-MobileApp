@@ -147,15 +147,15 @@ SellerModel sellersDetails1 = SellerModel();
       for (var i = 0; i < notes.length; i++) {
         List<ProductModel> productDetails = await getImgData(notes[i].productId);
         var path = productDetails[0].imgName;
-        var newPath = path.substring(0, 7) +
-            networkIpAddress +
-            path.substring(16, path.length);
+        // var newPath = path.substring(0, 7) +
+        //     networkIpAddress +
+        //     path.substring(16, path.length);
 
         var itemsDetails_1 = ProductModel(
             id: notes[i].productId,
             productName: notes[i].productName,
             availableQuantity: notes[i].quantity,
-            imgName: newPath);
+            imgName: path);
         itemsDetails.add(itemsDetails_1);
       }
     }
@@ -183,6 +183,13 @@ SellerModel sellersDetails1 = SellerModel();
       "deliverPersonId":userDetails.id,
       "state": "Mark Arrived",
     });
+    
+    final String apiUrl_1 = checkoutStates;
+     final response1 = await http.post(apiUrl_1 + commonListGetData.orderId, body: {
+      "deliverPersonId":userDetails.id,
+      "state": "Mark Arrived",
+    });
+
     bool notesJson = false;
 
     if (response.statusCode == 200) {
