@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:online_delivey_system_app/home.dart';
 import 'package:online_delivey_system_app/signup.dart';
 import 'package:online_delivey_system_app/ui_curve_design.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 import 'apiUrl/api.dart';
 import 'common/common_data.dart';
@@ -156,8 +156,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                   );
 
                    final bool singup = await createSingup(deliverPeson);
-                   SharedPreferences prefs = await SharedPreferences.getInstance();
-                    prefs.setString('isLogIn','Yes');
+                  //  SharedPreferences prefs = await SharedPreferences.getInstance();
+                    // prefs.setString('isLogIn','Yes');
                   setState(() {
                     _singup = singup;
                   });

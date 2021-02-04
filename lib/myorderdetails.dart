@@ -187,7 +187,7 @@ SellerModel sellersDetails1 = SellerModel();
     final String apiUrl_1 = checkoutStates;
      final response1 = await http.post(apiUrl_1 + commonListGetData.orderId, body: {
       "deliverPersonId":userDetails.id,
-      "state": "Mark Arrived",
+      "state": "Order Completed",
     });
 
     bool notesJson = false;

@@ -1,5 +1,5 @@
-var networkIpAddress= "192.168.8.103:3000"; 
-                      //"onlinedelivery01.herokuapp.com";
+var networkIpAddress= //"192.168.8.103:3000"; 
+                      "onlinedelivery01.herokuapp.com";
 
 var deliversRegApi="http://"+networkIpAddress+"/delivers/register";
 var deliversLoginApi="http://"+networkIpAddress+"/delivers/login";

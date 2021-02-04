@@ -6,6 +6,7 @@ import 'package:online_delivey_system_app/nav_drawer.dart';
 import 'package:http/http.dart' as http;
 
 import 'apiUrl/api.dart';
+import 'common/common_data.dart';
 import 'entities/order_model.dart';
 
 class OrderCompletedView extends StatefulWidget {
@@ -19,7 +20,7 @@ class MarkCompleteData {
     "OrderID" : "#102453",
     "PayementMethod": "Cash On Delivery",
     "TotalAmount": 5400,
-    "YourEarnings": 200,
+    "YourEarnings": 150,
   };
 
 //function to fetch the data
@@ -123,7 +124,7 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
                       children: <Widget>[
                         Padding(padding: EdgeInsets.all(5)),
                         Text(
-                          "Total Amount  - Rs." + MarkCompleteData().getTotalAmount().toString() + ".00/=",
+                          "Total Amount  - Rs." + getArricedTotal.toString() + ".00/=",
                           style: TextStyle(
                               color: Colors.indigo[900],
                               fontWeight: FontWeight.w800,
@@ -138,7 +139,7 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
                       children: <Widget>[
                         Padding(padding: EdgeInsets.all(5)),
                         Text(
-                          "Your Earnings - Rs." + MarkCompleteData().getYourEarnings().toString() + ".00/=",
+                          "Your Earnings - Rs." + getArricedEarn.toString() + ".00/=",
                           style: TextStyle(
                               color: Colors.indigo[900],
                               fontWeight: FontWeight.w800,

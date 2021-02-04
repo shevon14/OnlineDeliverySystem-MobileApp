@@ -38,7 +38,7 @@ class HomeController extends StatelessWidget {
     // print('start');
     // print(isSignIn);
     //return isSignIn == 'Yes' ? HomeView() : SignInView();
-    return SignUpView();
+    return SignInView();
   }
 }
 

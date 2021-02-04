@@ -108,13 +108,21 @@ class _MarkArrivedViewState extends State<MarkArrivedView> {
   }
 
   int getTotalAmount(){
-    return int.parse(commonListGetData.total);
+    var quantity_1;
+    var total=0;
+    for(var i=0; i<itemsDetails.length; i++){
+quantity_1=itemsDetails[i].availableQuantity;
+total=quantity_1*itemsDetails[i].uniPrice;
+    }
+    getArricedTotal=total;
+    
+    return total;
   }
 
   int getYourEarnings(){
     var total=int.parse(commonListGetData.total);
     var uprice= int.parse(commonListGetData.uniPrice);
-    var earn1=total-uprice;
+    var earn1=(total-uprice)*itemsDetails.length;
     getArricedEarn=earn1;
     return (earn1);
   }

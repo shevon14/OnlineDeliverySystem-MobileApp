@@ -1,4 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+
+import 'apiUrl/api.dart';
+import 'entities/order_model.dart';
+import 'package:http/http.dart' as http;
 
 class CompleteOrderHistoryView extends StatefulWidget {
   @override
@@ -65,6 +71,33 @@ class CompleteOrderHistoryData {
 }
 
 class _CompleteOrderHistoryViewState extends State<CompleteOrderHistoryView> {
+
+  
+  List<OrderModel> _notes = List<OrderModel>();
+
+  Future<List<OrderModel>> getOrders() async {
+    final String apiUrl = orderPickApi;
+    final response = await http.get(apiUrl);
+
+    var notes = List<OrderModel>();
+    var filterNotes = List<OrderModel>();
+    String preOrderId;
+
+    if (response.statusCode == 200) {
+      var notesJson = json.decode(response.body);
+      for (var noteJson in notesJson) {
+        notes.add(OrderModel.fromJson(noteJson));
+      }
+      for (var i = 0; i < notes.length; i++) {
+        if (preOrderId != notes[i].orderId &&
+            notes[i].state == "Order Completed") {
+          filterNotes.add(notes[i]);
+        }
+        preOrderId = notes[i].orderId;
+      }
+    }
+    return filterNotes;
+  }
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
