@@ -18,27 +18,29 @@ class _SignUpViewState extends State<SignUpView> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-            resizeToAvoidBottomPadding: false,
+            resizeToAvoidBottomPadding: false, 
             body: GestureDetector(
                 onTap: () {
                   // call this method here to hide soft keyboard
                   FocusScope.of(context).requestFocus(new FocusNode());
                 },
-                child: CustomPaint(
-                  painter: CurvePainter(),
-                  child: Stack(
-                    children: <Widget>[
-                      Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
+                child: //CustomPaint(
+                //  painter: CurvePainter(),
+                //  child: //Stack(
+                   // children: <Widget>[
+                      
+                     // Column(
+                      //  mainAxisSize: MainAxisSize.max,
+                      //  children: <Widget>[
                           SingleChildScrollView(
                             child: MyCustomForm(),
                           )
-                        ],
-                      )
-                    ],
-                  ),
-                ))));
+                     //   ],
+                   //   )
+                 //   ],
+                //  ),
+              //  )
+              )));
   }
 }
 
@@ -116,10 +118,10 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: Padding(
               padding: EdgeInsets.only(),
               child: TextField(
-                controller: nameController,
+                controller: nameController, keyboardType: TextInputType.text,
                 style: TextStyle(color: Theme.of(context).accentColor),
                 decoration: InputDecoration(
-                  hintText: "Name",
+                  hintText: "Name", 
                   hintStyle: TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),
                   enabledBorder: UnderlineInputBorder(
@@ -142,7 +144,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: Padding(
               padding: EdgeInsets.only(),
               child: TextField(
-                controller: emailController,
+                controller: emailController, keyboardType: TextInputType.emailAddress,
                 style: TextStyle(color: Theme.of(context).accentColor),
                 decoration: InputDecoration(
                   hintText: "Email Address",
@@ -170,7 +172,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: Padding(
               padding: EdgeInsets.only(),
               child: TextField(
-                controller: contactController,
+                controller: contactController, keyboardType: TextInputType.number,
                 style: TextStyle(color: Theme.of(context).accentColor),
                 decoration: InputDecoration(
                   hintText: "Contact Number",
@@ -198,7 +200,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: Padding(
               padding: EdgeInsets.only(),
               child: TextField(
-                controller: dLicenceController,
+                controller: dLicenceController, keyboardType: TextInputType.number,
                 style: TextStyle(color: Theme.of(context).accentColor),
                 decoration: InputDecoration(
                   hintText: "Driving Licence ID Number",
@@ -226,7 +228,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: Padding(
               padding: EdgeInsets.only(),
               child: TextField(
-                controller: vehicleController,
+                controller: vehicleController, keyboardType: TextInputType.text,
                 style: TextStyle(color: Theme.of(context).accentColor),
                 decoration: InputDecoration(
                   hintText: "Vehicle Type",
@@ -254,7 +256,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: Padding(
               padding: EdgeInsets.only(),
               child: TextField(
-                controller: vehicleLicenceController,
+                controller: vehicleLicenceController, keyboardType: TextInputType.number,
                 style: TextStyle(color: Theme.of(context).accentColor),
                 decoration: InputDecoration(
                   hintText: "Vehicle Licence number",
@@ -282,7 +284,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: Padding(
               padding: EdgeInsets.only(),
               child: TextField(
-                controller: passwordController,
+                controller: passwordController, keyboardType: TextInputType.visiblePassword, 
                 style: TextStyle(color: Theme.of(context).accentColor),
                 decoration: InputDecoration(
                   hintText: "Password",
@@ -299,7 +301,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     color: Colors.blue,
                   ),
                 ),
-                obscureText: false,
+                obscureText: true,
               ),
             ),
           ),

@@ -148,7 +148,7 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                             child: Row(
                               children: <Widget>[
                                 Icon(
-                                  Icons.fastfood,
+                                  Icons.local_shipping,
                                   color: Colors.blue,
                                   size: 40,
                                 ),
@@ -166,7 +166,7 @@ class _MyOrdersViewState extends State<MyOrdersView> {
                                           style: TextStyle(
                                               color: Colors.indigo[900],
                                               fontWeight: FontWeight.w900,
-                                              fontSize: 20)),
+                                              fontSize: 13)),
                                       Text(
                                          _notes[index]
                                               .address, //get address details

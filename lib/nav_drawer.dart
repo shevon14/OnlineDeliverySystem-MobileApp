@@ -41,6 +41,7 @@ class _NavDrawerState extends State<NavDrawer> {
           UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
+              child: Icon(Icons.person, size: 50,),
             ),
             accountName: Text(
               MyDrawerDetails().getName(),
@@ -139,6 +140,25 @@ class _NavDrawerState extends State<NavDrawer> {
               color: Colors.black54,
             ),
             title: Text('About',
+                style: TextStyle(
+                    color: Colors.black, fontWeight: FontWeight.bold)),
+            onTap: () {
+              // Navigator.push(
+              //   context,
+              //   CupertinoPageRoute(builder: (context) => MyProfile()),
+              // );
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.transit_enterexit,
+              color: Colors.blue[300],
+            ),
+            trailing: Icon(
+              Icons.arrow_right,
+              color: Colors.black54,
+            ),
+            title: Text('Log Out',
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold)),
             onTap: () {

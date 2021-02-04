@@ -261,7 +261,7 @@ class _PickUpDetailViewState extends State<PickUpDetailView> {
   String getCustomerName() {
      var data=commonListGetData.customerName==null? "":commonListGetData.customerName;
     return data;
-  }
+  } 
 
   String getCustomerAddress() {
      var data=commonListGetData.address==null? "":commonListGetData.address;
@@ -362,7 +362,7 @@ class _PickUpDetailViewState extends State<PickUpDetailView> {
                                   size: 30,
                                 ),
                                 onTap: () {
-                                  MapsLauncher.launchQuery('Colombo');
+                                  MapsLauncher.launchQuery(getSellerAddress());
                                 },
                               ),
                             ),
@@ -385,7 +385,7 @@ class _PickUpDetailViewState extends State<PickUpDetailView> {
                                         size: 30,
                                       ),
                                       onTap: () {
-                                        customLaunch('tel: 123');
+                                        customLaunch('tel:'+getSellerConatctNumber());
                                       },
                                     ),
                                     SizedBox(
@@ -398,7 +398,7 @@ class _PickUpDetailViewState extends State<PickUpDetailView> {
                                         size: 30,
                                       ),
                                       onTap: () {
-                                        customLaunch('sms: 123');
+                                        customLaunch('sms:'+getSellerConatctNumber());
                                       },
                                     ),
                                   ],
@@ -456,7 +456,7 @@ class _PickUpDetailViewState extends State<PickUpDetailView> {
                                   size: 30,
                                 ),
                                 onTap: () {
-                                  MapsLauncher.launchQuery('Colombo');
+                                  MapsLauncher.launchQuery(getCustomerAddress());
                                 },
                               ),
                             ),
@@ -479,7 +479,7 @@ class _PickUpDetailViewState extends State<PickUpDetailView> {
                                         size: 30,
                                       ),
                                       onTap: () {
-                                        customLaunch('tel: 123');
+                                        customLaunch('tel:'+getCustomerConatctNumber());
                                       },
                                     ),
                                     SizedBox(
@@ -492,7 +492,7 @@ class _PickUpDetailViewState extends State<PickUpDetailView> {
                                         size: 30,
                                       ),
                                       onTap: () {
-                                        customLaunch('sms: 123');
+                                        customLaunch('sms:'+getCustomerConatctNumber());
                                       },
                                     ),
                                   ],

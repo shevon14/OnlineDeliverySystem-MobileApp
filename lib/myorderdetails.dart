@@ -227,44 +227,55 @@ SellerModel sellersDetails1 = SellerModel();
 
 
   String getSellerName() {
-    return sellersDetails1.name;
+    var data = sellersDetails1.name==null? "":sellersDetails1.name;
+    return data;
     // _data[index]["sellerName"];
   }
 
   String getSellerAddress() {
-    return sellersDetails1.address;
+    var data = sellersDetails1.address==null? "":sellersDetails1.address;
+    return data;
+    
   }
 
   String getSellerConatctNumber() {
-    return sellersDetails1.officePhone;
+    var data = sellersDetails1.officePhone==null? "":sellersDetails1.officePhone;
+    return data;
   }
 
   String getCustomerName() {
-    return commonListGetData.customerName;
+    var data = commonListGetData.customerName==null? "":commonListGetData.customerName;
+    return data;
   }
 
   String getCustomerAddress() {
-    return commonListGetData.address;
+    var data = commonListGetData.address==null? "":commonListGetData.address;
+    return data;
   }
 
   String getCustomerConatctNumber() {
-    return commonListGetData.mobileNumber;
+    var data = commonListGetData.mobileNumber==null? "":commonListGetData.mobileNumber;
+    return data;
   }
 
   String getQuantity(int index) {
-    return itemsDetails[index].availableQuantity;
+    var data=itemsDetails[index].availableQuantity==null? "":itemsDetails[index].availableQuantity;
+    return data;
   }
 
   String getItemName(int index) {
-    return itemsDetails[index].productName;
+    var data=itemsDetails[index].productName==null? "":itemsDetails[index].productName;
+    return data;
   }
 
   String getImg(int index) {
-    return itemsDetails[index].imgName;
+    var data=itemsDetails[index].imgName==null? "":itemsDetails[index].imgName;
+    return data;
   }
 
   int getItemsLength() {
-    return itemsDetails.length;
+     var data=itemsDetails.length==null? 0:itemsDetails.length;
+    return data;
   }
 
   @override
@@ -337,7 +348,7 @@ SellerModel sellersDetails1 = SellerModel();
                                   size: 30,
                                 ),
                                 onTap: () {
-                                  MapsLauncher.launchQuery('Colombo');
+                                  MapsLauncher.launchQuery(getCustomerAddress());
                                 },
                               ),
                             ),
@@ -360,7 +371,7 @@ SellerModel sellersDetails1 = SellerModel();
                                         size: 30,
                                       ),
                                       onTap: () {
-                                        customLaunch('tel: 123');
+                                        customLaunch('tel:'+ getCustomerConatctNumber());
                                       },
                                     ),
                                     SizedBox(
@@ -373,7 +384,7 @@ SellerModel sellersDetails1 = SellerModel();
                                         size: 30,
                                       ),
                                       onTap: () {
-                                        customLaunch('sms: 123');
+                                        customLaunch('sms:'+getCustomerConatctNumber());
                                       },
                                     ),
                                   ],
@@ -432,7 +443,7 @@ SellerModel sellersDetails1 = SellerModel();
                                   size: 30,
                                 ),
                                 onTap: () {
-                                  MapsLauncher.launchQuery('Colombo');
+                                  MapsLauncher.launchQuery(getSellerAddress());
                                 },
                               ),
                             ),
@@ -455,7 +466,7 @@ SellerModel sellersDetails1 = SellerModel();
                                         size: 30,
                                       ),
                                       onTap: () {
-                                        customLaunch('tel: 123');
+                                        customLaunch('tel:'+getSellerConatctNumber());
                                       },
                                     ),
                                     SizedBox(
@@ -468,7 +479,7 @@ SellerModel sellersDetails1 = SellerModel();
                                         size: 30,
                                       ),
                                       onTap: () {
-                                        customLaunch('sms: 123');
+                                        customLaunch('sms:'+getSellerConatctNumber());
                                       },
                                     ),
                                   ],

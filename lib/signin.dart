@@ -24,7 +24,7 @@ class _SignInViewState extends State<SignInView> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-            resizeToAvoidBottomPadding: false,
+            resizeToAvoidBottomPadding: false, 
             body: GestureDetector(
                 onTap: () {
                   // call this method here to hide soft keyboard
@@ -109,11 +109,11 @@ class MyCustomFormState extends State<MyCustomForm> {
           Container(
             child: Padding(
               padding: EdgeInsets.only(),
-              child: TextField(
-                controller: passwordController,
+              child: TextField(keyboardType: TextInputType.visiblePassword, 
+                controller: passwordController, 
                 style: TextStyle(color: Theme.of(context).accentColor),
                 decoration: InputDecoration(
-                  hintText: "Password",
+                  hintText: "Password", 
                   hintStyle: TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),
                   enabledBorder: UnderlineInputBorder(
@@ -127,7 +127,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     color: Colors.blue,
                   ),
                 ),
-                obscureText: false,
+                obscureText: true,
               ),
             ),
           ),

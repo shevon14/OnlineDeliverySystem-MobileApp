@@ -90,10 +90,10 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
                     child: Column(children: <Widget>[
                   Card(
                       child: Padding(
-                          padding: EdgeInsets.only(top: 15, bottom: 15),
+                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
                           child: Row(children: <Widget>[
                             Icon(
-                              Icons.fastfood,
+                              Icons.local_shipping,
                               color: Colors.blue,
                               size: 40,
                             ),
@@ -104,11 +104,11 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(MarkCompleteData().getOrderID(),
-                                    style: TextStyle(
-                                        color: Colors.indigo[900],
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 18)),
+                                // Text(MarkCompleteData().getOrderID(),
+                                //     style: TextStyle(
+                                //         color: Colors.indigo[900],
+                                //         fontWeight: FontWeight.w900,
+                                //         fontSize: 18)),
                                 Text(MarkCompleteData().getPaymentMethod(),
                                     style: TextStyle(
                                         color: Colors.black,
