@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_delivey_system_app/editmyprofile.dart';
 import 'package:online_delivey_system_app/home.dart';
 import 'package:online_delivey_system_app/nav_drawer.dart';
 
@@ -101,7 +102,8 @@ class _MyProfileViewState extends State<MyProfileView> {
                     Card(
                       child: ListTile(
                         title: Text(
-                          "Licence ID: " + MyProfileData().getDrivingLicencesID(),
+                          "Licence ID: " +
+                              MyProfileData().getDrivingLicencesID(),
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.black,
@@ -131,6 +133,22 @@ class _MyProfileViewState extends State<MyProfileView> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    RaisedButton(padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                        color: Colors.grey[100],
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Text(' Edit Details ',
+                            style: TextStyle(color: Colors.blue)),
+                        onPressed: (() {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EditProfile()),
+                          );
+                        })),
                   ],
                 ),
               ),
