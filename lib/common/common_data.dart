@@ -8,3 +8,4 @@ UserDataModel userDetails =new UserDataModel();
 List<ProductModel> markArricedItemsDetails=new List<ProductModel>();
 int commonListDataIndex;
 int getArricedEarn;
+int getArricedTotal=0;

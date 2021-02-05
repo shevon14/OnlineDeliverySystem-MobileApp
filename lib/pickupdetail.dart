@@ -133,16 +133,16 @@ class _PickUpDetailViewState extends State<PickUpDetailView> {
       for (var i = 0; i < notes.length; i++) {
         List<ProductModel> productDetails = await getImgData(notes[i].productId);
         var path = productDetails[0].imgName;
-        // var newPath = path.substring(0, 7) +
-        //     networkIpAddress +
-        //     path.substring(16, path.length);
+        var newPath = path.substring(0, 7) +
+            networkIpAddress +
+            path.substring(21, path.length);
 
         var itemsDetails_1 = ProductModel(
             id: notes[i].productId,
             productName: notes[i].productName,
             availableQuantity: notes[i].quantity,
-            imgName:path);
-            //imgName: newPath);
+            // imgName:path);
+            imgName: newPath);
         itemsDetails.add(itemsDetails_1);
       }
     }

@@ -27,72 +27,72 @@ void customLaunch(command) async {
   }
 }
 
-// class MyPickOrderData {
-//   Map fetched_data = {
-//     "sellerName": "getSellerName",
-//     "sellerAddress": "getSellerAddress",
-//     "sellerContactNumber": "getSellerContactNumber",
-//     "customerName": "getcustomerName",
-//     "customerAddress": "getcustomerAddress",
-//     "customerContactNumber": "getcustomerContactNumber",
-//     "items": [
-//         {
-//           //ekama order eke products wadi weddi meke length eka wadi karala enna danna
-//           "itemName": "Vegetable",
-//           "quantity": "100 g",
-//           "image":
-//               "https://fyi.extension.wisc.edu/safefood/files/2019/04/CDC_produce.png"
-//         },
-//     ]
-//   };
-//   List _item;
+class MyPickOrderData {
+  Map fetched_data = {
+    "sellerName": "getSellerName",
+    "sellerAddress": "getSellerAddress",
+    "sellerContactNumber": "getSellerContactNumber",
+    "customerName": "getcustomerName",
+    "customerAddress": "getcustomerAddress",
+    "customerContactNumber": "getcustomerContactNumber",
+    "items": [
+        {
+          //ekama order eke products wadi weddi meke length eka wadi karala enna danna
+          "itemName": "Vegetable",
+          "quantity": "100 g",
+          "image":
+              "https://fyi.extension.wisc.edu/safefood/files/2019/04/CDC_produce.png"
+        },
+    ]
+  };
+  List _item;
 
-// //function to fetch the data
-//   MyPickOrderData() {
-//     _item = fetched_data["items"];
-//   }
+//function to fetch the data
+  MyPickOrderData() {
+    _item = fetched_data["items"];
+  }
 
-//   String getSellerName() {
-//     return fetched_data["sellerName"];
-//     // _data[index]["sellerName"];
-//   }
+  String getSellerName() {
+    return fetched_data["sellerName"];
+    // _data[index]["sellerName"];
+  }
 
-//   String getSellerAddress() {
-//     return fetched_data["sellerAddress"];
-//   }
+  String getSellerAddress() {
+    return fetched_data["sellerAddress"];
+  }
 
-//   String getSellerConatctNumber() {
-//     return fetched_data["sellerContactNumber"];
-//   }
+  String getSellerConatctNumber() {
+    return fetched_data["sellerContactNumber"];
+  }
 
-//   String getCustomerName() {
-//     return fetched_data["customerName"];
-//   }
+  String getCustomerName() {
+    return fetched_data["customerName"];
+  }
 
-//   String getCustomerAddress() {
-//     return fetched_data["customerAddress"];
-//   }
+  String getCustomerAddress() {
+    return fetched_data["customerAddress"];
+  }
 
-//   String getCustomerConatctNumber() {
-//     return fetched_data["customerContactNumber"];
-//   }
+  String getCustomerConatctNumber() {
+    return fetched_data["customerContactNumber"];
+  }
 
-//   String getQuantity(int index) {
-//     return _item[index]["itemName"];
-//   }
+  String getQuantity(int index) {
+    return _item[index]["itemName"];
+  }
 
-//   String getItemName(int index) {
-//     return _item[index]["quantity"];
-//   }
+  String getItemName(int index) {
+    return _item[index]["quantity"];
+  }
 
-//   String getImg(int index) {
-//     return _item[index]["image"];
-//   }
+  String getImg(int index) {
+    return _item[index]["image"];
+  }
 
-//   int getItemsLength() {
-//     return _item.length;
-//   }
-// }
+  int getItemsLength() {
+    return _item.length;
+  }
+}
 
 class _MyOrderDetailViewState extends State<MyOrderDetailView> {
   List<ProductModel> itemsDetails=new List<ProductModel>();
@@ -145,17 +145,18 @@ SellerModel sellersDetails1 = SellerModel();
         notes.add(OrderModel.fromJson(noteJson));
       }
       for (var i = 0; i < notes.length; i++) {
+        getArricedTotal=getArricedTotal+int.parse(notes[i].total);
         List<ProductModel> productDetails = await getImgData(notes[i].productId);
         var path = productDetails[0].imgName;
-        // var newPath = path.substring(0, 7) +
-        //     networkIpAddress +
-        //     path.substring(16, path.length);
+        var newPath = path.substring(0, 7) +
+            networkIpAddress +
+            path.substring(21, path.length);
 
         var itemsDetails_1 = ProductModel(
             id: notes[i].productId,
             productName: notes[i].productName,
             availableQuantity: notes[i].quantity,
-            imgName: path);
+            imgName: newPath);
         itemsDetails.add(itemsDetails_1);
       }
     }
@@ -473,7 +474,7 @@ SellerModel sellersDetails1 = SellerModel();
                                         size: 30,
                                       ),
                                       onTap: () {
-                                        customLaunch('tel:'+getSellerConatctNumber());
+                                        customLaunch('tel:'+MyPickOrderData().getSellerConatctNumber());
                                       },
                                     ),
                                     SizedBox(
@@ -486,7 +487,7 @@ SellerModel sellersDetails1 = SellerModel();
                                         size: 30,
                                       ),
                                       onTap: () {
-                                        customLaunch('sms:'+getSellerConatctNumber());
+                                        customLaunch('sms:'+MyPickOrderData().getSellerConatctNumber());
                                       },
                                     ),
                                   ],
@@ -534,7 +535,7 @@ SellerModel sellersDetails1 = SellerModel();
                                         width: 50,
                                         child: DecoratedBox(
                                           child: Image.network(
-                                            getImg(index),
+                                           getImg(index),
                                             width: 100,
                                             height: 100,
                                             fit: BoxFit.cover,
@@ -577,7 +578,7 @@ SellerModel sellersDetails1 = SellerModel();
                                             height: 5,
                                           ),
                                           //item quantity
-                                          Text(" :" + getQuantity(index),
+                                          Text(" :" +getQuantity(index),
                                               style: TextStyle(
                                                   color: Colors.black)),
                                         ],
@@ -621,9 +622,9 @@ SellerModel sellersDetails1 = SellerModel();
                                                     color: Colors.indigo[900],
                                                     fontWeight:
                                                         FontWeight.bold)),
-                                            onPressed: (() async {
-                                              final bool user =
-                                                  await updateArrivedOrder();
+                                            onPressed: (()  async{
+                                              // final bool user =
+                                              //     await updateArrivedOrder();
 
                                               setState(() {
                                               Navigator.push(

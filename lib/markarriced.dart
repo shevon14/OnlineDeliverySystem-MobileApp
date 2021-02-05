@@ -16,62 +16,62 @@ class MarkArrivedView extends StatefulWidget {
   _MarkArrivedViewState createState() => _MarkArrivedViewState();
 }
 
-// //array details 
-// class MarkArrivedData {
+//array details 
+class MarkArrivedData {
 
-//   Map fetched_data = {
-//     "OrderID" : "#102453",
-//     "PayementMethod": "Cash On Delivery",
-//     "TotalAmount": 5000,
-//     "YourEarnings": 200,
-//     "items": [
-//       {   //ekama order eke products wadi weddi meke length eka wadi karala enna danna
-//           "itemName": "Vegetable",
-//           "quantity": "100 g",
-//           "image":
-//               "https://fyi.extension.wisc.edu/safefood/files/2019/04/CDC_produce.png"
-//         },
-//     ]
-//   };
-//   List _item;
+  Map fetched_data = {
+    "OrderID" : "#102453",
+    "PayementMethod": "Cash On Delivery",
+    "TotalAmount": 5000,
+    "YourEarnings": 200,
+    "items": [
+      {   //ekama order eke products wadi weddi meke length eka wadi karala enna danna
+          "itemName": "Vegetable",
+          "quantity": "100 g",
+          "image":
+              "https://fyi.extension.wisc.edu/safefood/files/2019/04/CDC_produce.png"
+        },
+    ]
+  };
+  List _item;
 
-// //function to fetch the data
-//   MarkArrivedData() {
-//     _item = fetched_data["items"];
-//   }
+//function to fetch the data
+  MarkArrivedData() {
+    _item = fetched_data["items"];
+  }
 
-//   String getOrderID() {
-//     return fetched_data["OrderID"];
-//   }
+  String getOrderID() {
+    return fetched_data["OrderID"];
+  }
 
-//   String getPaymentMethod() {
-//     return fetched_data["PayementMethod"];
-//   }
+  String getPaymentMethod() {
+    return fetched_data["PayementMethod"];
+  }
 
-//   int getTotalAmount(){
-//     return fetched_data["TotalAmount"];
-//   }
+  int getTotalAmount(){
+    return fetched_data["TotalAmount"];
+  }
 
-//   int getYourEarnings(){
-//     return fetched_data["YourEarnings"];
-//   }
+  int getYourEarnings(){
+    return fetched_data["YourEarnings"];
+  }
 
-//   String getQuantity(int index) {
-//     return _item[index]["itemName"];
-//   }
+  String getQuantity(int index) {
+    return _item[index]["itemName"];
+  }
 
-//   String getItemName(int index) {
-//     return _item[index]["quantity"];
-//   }
+  String getItemName(int index) {
+    return _item[index]["quantity"];
+  }
 
-//   String getImg(int index) {
-//     return _item[index]["image"];
-//   }
+  String getImg(int index) {
+    return _item[index]["image"];
+  }
 
-//   int getItemsLength() {
-//     return _item.length;
-//   }
-// }
+  int getItemsLength() {
+    return _item.length;
+  }
+}
 
 class _MarkArrivedViewState extends State<MarkArrivedView> {
 
@@ -108,39 +108,47 @@ class _MarkArrivedViewState extends State<MarkArrivedView> {
   }
 
   int getTotalAmount(){
-    var quantity_1;
-    var total=0;
-    for(var i=0; i<itemsDetails.length; i++){
-quantity_1=itemsDetails[i].availableQuantity;
-total=quantity_1*itemsDetails[i].uniPrice;
-    }
-    getArricedTotal=total;
+    // var quantity_1;
+//     var total=0;
+// //     for(var i=0; i<itemsDetails.length; i++){
+      
+// //       // int aaa=(1*int.parse(itemsDetails[i].uniPrice));
+// //       print("l"+total.toString()+"  "+itemsDetails[i].uniPrice);
+// // // quantity_1=int.parse(iteSmsDetails[i].availableQuantity);
+// // // total==null?(1*int.parse(itemsDetails[i].uniPrice)):"asss";
+// // // total=1*int.parse(itemsDetails[i].uniPrice);
+// //     }
+//     getArricedTotal=total;
     
-    return total;
+    return getArricedTotal;
   }
 
   int getYourEarnings(){
     var total=int.parse(commonListGetData.total);
     var uprice= int.parse(commonListGetData.uniPrice);
-    var earn1=(total-uprice)*itemsDetails.length;
+    var earn1=(total-uprice);
     getArricedEarn=earn1;
     return (earn1);
   }
 
   String getQuantity(int index) {
-    return itemsDetails[index].availableQuantity;
+    var data=itemsDetails[index].availableQuantity==null? "":itemsDetails[index].availableQuantity;
+    return data;
   }
 
   String getItemName(int index) {
-    return itemsDetails[index].productName;
+    var data=itemsDetails[index].productName==null? "":itemsDetails[index].productName;
+    return data;
   }
 
   String getImg(int index) {
-    return itemsDetails[index].imgName;
+    var data=itemsDetails[index].imgName==null? "":itemsDetails[index].imgName;
+    return data;
   }
 
   int getItemsLength() {
-    return itemsDetails.length;
+    var data=itemsDetails.length==null? "":itemsDetails.length;
+    return data;
   }
 
   @override
@@ -297,7 +305,7 @@ total=quantity_1*itemsDetails[i].uniPrice;
                       children: <Widget>[
                         Padding(padding: EdgeInsets.all(5)),
                         Text(
-                          "Total Amount  - Rs." +getTotalAmount().toString() + "/=",
+                          "Total Amount  - Rs." + getTotalAmount().toString() + "/=",
                           style: TextStyle(
                               color: Colors.indigo[900],
                               fontWeight: FontWeight.w800,
@@ -353,8 +361,8 @@ total=quantity_1*itemsDetails[i].uniPrice;
                                                     fontWeight:
                                                         FontWeight.bold)),
                                             onPressed: (()async {
-                                              final bool user =
-                                                  await updateCollectOrder();
+                                              // final bool user =
+                                              //     await updateCollectOrder();
 
                                               setState(() {
                                               Navigator.push(

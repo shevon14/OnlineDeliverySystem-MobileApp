@@ -1,5 +1,5 @@
-var networkIpAddress= //"192.168.8.103:3000"; 
-                      "onlinedelivery01.herokuapp.com";
+var networkIpAddress= "192.168.8.101:3000"; 
+                      //"onlinedelivery01.herokuapp.com";
 
 var deliversRegApi="http://"+networkIpAddress+"/delivers/register";
 var deliversLoginApi="http://"+networkIpAddress+"/delivers/login";
@@ -13,3 +13,5 @@ var sellerDataApi="http://"+networkIpAddress+"/sellers/";
 var singleProductDataApi="http://"+networkIpAddress+"/products/single/";
 var checkoutStates="http://"+networkIpAddress+"/checkout/";
 var updateProfileData="http://"+networkIpAddress+"/delivers/update/";
+var updateIncome="http://"+networkIpAddress+"/incomeOfDelivers/add";
+var completeIncome="http://"+networkIpAddress+"/incomeOfDelivers/";

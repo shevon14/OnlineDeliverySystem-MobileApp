@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:online_delivey_system_app/home.dart';
 import 'package:online_delivey_system_app/signup.dart';
 import 'package:online_delivey_system_app/ui_curve_design.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'apiUrl/api.dart';
 import 'common/common_data.dart';
@@ -156,8 +156,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                   );
 
                    final bool singup = await createSingup(deliverPeson);
-                  //  SharedPreferences prefs = await SharedPreferences.getInstance();
-                    // prefs.setString('isLogIn','Yes');
+                   final SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.setString('isLogIn','Yes');
                   setState(() {
                     _singup = singup;
                   });
@@ -231,10 +231,11 @@ var singupModel = List<UserDataModel>();
     bool login=false;
     
     final response = await http.post(apiUrl, body: {
-      "email": userData.email,
+      "email": "qq@12.com",//userData.email,
       "password": userData.password,
     });
-    final response_1 = await http.get(apiUrl_1+userData.email);
+    final response_1 = await http.get(apiUrl_1+"qq@12.com");
+    // userData.email);
     
 
     if (response.statusCode == 401) {

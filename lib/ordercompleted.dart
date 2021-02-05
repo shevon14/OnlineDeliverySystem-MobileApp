@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 import 'apiUrl/api.dart';
 import 'common/common_data.dart';
+import 'entities/income_model.dart';
 import 'entities/order_model.dart';
 
 class OrderCompletedView extends StatefulWidget {
@@ -17,7 +18,7 @@ class OrderCompletedView extends StatefulWidget {
 //array details for order complete - modelen ekan details aran danna click kalma id ekata
 class MarkCompleteData {
   Map fetched_data = {
-    "OrderID" : "#102453",
+    "OrderID": "#102453",
     "PayementMethod": "Cash On Delivery",
     "TotalAmount": 5400,
     "YourEarnings": 150,
@@ -32,18 +33,18 @@ class MarkCompleteData {
     return fetched_data["PayementMethod"];
   }
 
-  int getTotalAmount(){
+  int getTotalAmount() {
     return fetched_data["TotalAmount"];
   }
 
-  int getYourEarnings(){
+  int getYourEarnings() {
     return fetched_data["YourEarnings"];
   }
 }
 
-
 class _OrderCompletedViewState extends State<OrderCompletedView> {
 
+    IncomeModelFromJson _singup;
   List<OrderModel> _notes = List<OrderModel>();
 
   Future<List<OrderModel>> getOrders() async {
@@ -91,7 +92,8 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
                     child: Column(children: <Widget>[
                   Card(
                       child: Padding(
-                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                          padding:
+                              EdgeInsets.only(top: 10, bottom: 10, left: 10),
                           child: Row(children: <Widget>[
                             Icon(
                               Icons.local_shipping,
@@ -124,7 +126,9 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
                       children: <Widget>[
                         Padding(padding: EdgeInsets.all(5)),
                         Text(
-                          "Total Amount  - Rs." + getArricedTotal.toString() + ".00/=",
+                          "Total Amount  - Rs." +
+                              getArricedTotal.toString() +
+                              ".00/=",
                           style: TextStyle(
                               color: Colors.indigo[900],
                               fontWeight: FontWeight.w800,
@@ -139,7 +143,9 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
                       children: <Widget>[
                         Padding(padding: EdgeInsets.all(5)),
                         Text(
-                          "Your Earnings - Rs." + getArricedEarn.toString() + ".00/=",
+                          "Your Earnings - Rs." +
+                              getArricedEarn.toString() +
+                              ".00/=",
                           style: TextStyle(
                               color: Colors.indigo[900],
                               fontWeight: FontWeight.w800,
@@ -162,7 +168,21 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
                             style: TextStyle(
                                 color: Colors.indigo[900],
                                 fontWeight: FontWeight.bold)),
-                        onPressed: (() {
+                        onPressed: (() async {
+                          var incomeData = IncomeModelFromJson(
+                              uId: userDetails.id,
+                              orderId: commonListData.orderId,
+                              payment: commonListData.payment,
+                              address: commonListData.address,
+                              totalCollected: getArricedTotal.toString(),
+                              income: getArricedEarn.toString()
+                              );
+
+                          final IncomeModelFromJson singup =
+                              await createEarn(incomeData);
+                          setState(() {
+                            _singup = singup;
+                          });
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => HomeView()),
@@ -175,5 +195,26 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
                 ])),
               ],
             ))));
+  }
+}
+
+Future<IncomeModelFromJson> createEarn(IncomeModelFromJson userData) async {
+  final String apiUrl = updateIncome;
+
+  final response = await http.post(apiUrl, body:{
+    "u_id": userData.uId,
+    "orderId": userData.orderId,
+    "payment": userData.payment,
+    "address": userData.address,
+    "totalCollected": userData.totalCollected,
+    "income": userData.income
+  });
+
+  if (response.statusCode == 200) {
+    final String responseString = response.body;
+
+    return incomeModelFromJsonFromJson(responseString);
+  } else {
+    return null;
   }
 }

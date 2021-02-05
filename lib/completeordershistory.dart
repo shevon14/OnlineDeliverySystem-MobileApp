@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'apiUrl/api.dart';
+import 'common/common_data.dart';
+import 'entities/income_model.dart';
 import 'entities/order_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,92 +14,158 @@ class CompleteOrderHistoryView extends StatefulWidget {
 }
 
 //Order listview data array
-class CompleteOrderHistoryData {
-  Map fetched_data = {  
-    // eka array obeject ekak ain karala model eken ena variables tika assign karanna
-    "data": [
-      {
-        "Id": "#15401",
-        "payment": "Cash on Delivery",
-        "address": "No.5, Main road, Negombo",
-        "date": "2020.05.26",
-        "totalCollected": "LKR 8000.00",
-        "income": "LKR 500.00"
-      },
-      {
-        "Id": "#15402",
-        "payment": "Card Payment",
-        "address": "No.5, Main road, Negombo",
-        "date": "2020.05.25",
-        "totalCollected": "LKR 9000.00",
-        "income": "LKR 300.00"
-      },
-    ]
-  };
-  List _data;
+// class CompleteOrderHistoryData {
+//   Map fetched_data = {  
+//     // eka array obeject ekak ain karala model eken ena variables tika assign karanna
+//     "data": [
+//       {
+//         "Id": "#15401",
+//         "payment": "Cash on Delivery",
+//         "address": "No.5, Main road, Negombo",
+//         "date": "2020.05.26",
+//         "totalCollected": "LKR 8000.00",
+//         "income": "LKR 500.00"
+//       },
+//       {
+//         "Id": "#15402",
+//         "payment": "Card Payment",
+//         "address": "No.5, Main road, Negombo",
+//         "date": "2020.05.25",
+//         "totalCollected": "LKR 9000.00",
+//         "income": "LKR 300.00"
+//       },
+//     ]
+//   };
+//   List _data;
 
-//function to fetch the data
-  CompleteOrderHistoryData() {
-    _data = fetched_data["data"];
-  }
+// //function to fetch the data
+//   CompleteOrderHistoryData() {
+//     _data = fetched_data["data"];
+//   }
 
-  String getId(int index) {
-    return _data[index]["Id"];
-  }
+//   String getId(int index) {
+//     return _data[index]["Id"];
+//   }
 
-  String getPayment(int index) {
-    return _data[index]["payment"];
-  }
+//   String getPayment(int index) {
+//     return _data[index]["payment"];
+//   }
 
-  String getAddress(int index) {
-    return _data[index]["address"];
-  }
+//   String getAddress(int index) {
+//     return _data[index]["address"];
+//   }
 
-  String getDate(int index) {
-    return _data[index]["date"];
-  }
+//   String getDate(int index) {
+//     return _data[index]["date"];
+//   }
 
-  String getTotalCollected(int index) {
-    return _data[index]["totalCollected"];
-  }
+//   String getTotalCollected(int index) {
+//     return _data[index]["totalCollected"];
+//   }
 
-  String getIncome(int index) {
-    return _data[index]["income"];
-  }
+//   String getIncome(int index) {
+//     return _data[index]["income"];
+//   }
 
-  int getLength() {
-    return _data.length;
-  }
-}
+//   int getLength() {
+//     return _data.length;
+//   }
+// }
 
 class _CompleteOrderHistoryViewState extends State<CompleteOrderHistoryView> {
 
   
-  List<OrderModel> _notes = List<OrderModel>();
+  List<IncomeModelFromJson> _notes = List<IncomeModelFromJson>();
 
-  Future<List<OrderModel>> getOrders() async {
-    final String apiUrl = orderPickApi;
-    final response = await http.get(apiUrl);
+  // Future<List<IncomeModelFromJson>> getOrders1() async {
+  //   final String apiUrl = completeIncome;
+  //   final response = await http.get(apiUrl+userDetails.id);
 
-    var notes = List<OrderModel>();
-    var filterNotes = List<OrderModel>();
+  //   var notes = List<IncomeModelFromJson>();
+
+  //   if (response.statusCode == 200) {
+  //     var notesJson = json.decode(response.body);
+  //      for (var noteJson in notesJson) {
+  //       notes.add(IncomeModelFromJson.fromJson(noteJson));
+  //     }
+  //   }
+  //   return notes;
+  //   }
+
+        Future<List<IncomeModelFromJson>> getOrders() async {
+    final String apiUrl = completeIncome;
+    final response = await http.get(apiUrl +userDetails.id);
+
+    var notes = List<IncomeModelFromJson>();
+    var filterNotes = List<IncomeModelFromJson>();
     String preOrderId;
 
     if (response.statusCode == 200) {
-      var notesJson = json.decode(response.body);
-      for (var noteJson in notesJson) {
-        notes.add(OrderModel.fromJson(noteJson));
+      var notesJson1 = json.decode(response.body);
+      for (var noteJson1 in notesJson1) {
+        notes.add(IncomeModelFromJson.fromJson(noteJson1));
       }
-      for (var i = 0; i < notes.length; i++) {
-        if (preOrderId != notes[i].orderId &&
-            notes[i].state == "Order Completed") {
-          filterNotes.add(notes[i]);
-        }
-        preOrderId = notes[i].orderId;
-      }
+      // for (var i = 0; i < notes.length; i++) {
+      //   if (preOrderId != notes[i].orderId &&
+      //       notes[i].state == "Picked Order") {
+      //     filterNotes.add(notes[i]);
+      //   }
+      //   preOrderId = notes[i].orderId;
+      // }
     }
-    return filterNotes;
+    return notes;
   }
+
+      @override
+  void initState() {
+    getOrders().then((value) {
+      setState(() {
+        _notes.addAll(value);
+        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        print(_notes[0].uId);
+        //print(_notes[0].orderId);
+      });
+    });
+    super.initState();
+  }
+
+
+    String getId(int index) {
+    return// "LKR 500.00";//
+     _notes[index].orderId;
+  }
+
+  String getPayment(int index) {
+    return //"LKR 500.00";
+    _notes[index].payment;
+  }
+
+  String getAddress(int index) {
+    var data = _notes[index].address==null? "":_notes[index].address;
+    return data;//"LKR 500.00";//
+    
+  }
+
+  String getDate(int index) {
+    return //"LKR 500.00";//
+    _notes[index].uId;//date.toString();
+  }
+
+  String getTotalCollected(int index) {
+    return //"LKR 500.00";//
+    _notes[index].totalCollected;
+  }
+
+  String getIncome(int index) {
+    return //"LKR 500.00";//
+    _notes[index].income;
+  }
+
+  int getLength() {
+    return //2;
+    _notes.length;
+  }
+
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
@@ -117,7 +185,7 @@ class _CompleteOrderHistoryViewState extends State<CompleteOrderHistoryView> {
             padding: EdgeInsets.fromLTRB(2, 10, 2, 3),
             child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: CompleteOrderHistoryData().getLength(),
+                itemCount: getLength(),
                 itemBuilder: (context, index) {
                   return Card(
                       child: Padding(
@@ -137,7 +205,7 @@ class _CompleteOrderHistoryViewState extends State<CompleteOrderHistoryView> {
                                   children: <Widget>[
                                     Row(
                                       children: <Widget>[
-                                        Text(CompleteOrderHistoryData().getId(index),
+                                        Text(getId(index),
                                             style: TextStyle(
                                                 color: Colors.indigo[900],
                                                 fontWeight: FontWeight.w900,
@@ -145,7 +213,7 @@ class _CompleteOrderHistoryViewState extends State<CompleteOrderHistoryView> {
                                        
                                       ],
                                     ),
-                                    Text(CompleteOrderHistoryData().getPayment(index),
+                                    Text(getPayment(index),
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w500,
@@ -154,7 +222,7 @@ class _CompleteOrderHistoryViewState extends State<CompleteOrderHistoryView> {
                                       children: <Widget>[
                                         SizedBox(
                                           width: 200,
-                                          child: Text(CompleteOrderHistoryData().getAddress(index),
+                                          child: Text(getAddress(index),
                                               style: TextStyle(
                                                   color: Colors.black, fontSize: 13,
                                                   fontWeight: FontWeight.w500)),
@@ -165,7 +233,7 @@ class _CompleteOrderHistoryViewState extends State<CompleteOrderHistoryView> {
                                       children: <Widget>[
                                         SizedBox(
                                           width: 200,
-                                          child: Text(CompleteOrderHistoryData().getDate(index),
+                                          child: Text(getDate(index),
                                               style: TextStyle( fontSize: 13,
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.w500)),
@@ -206,7 +274,7 @@ class _CompleteOrderHistoryViewState extends State<CompleteOrderHistoryView> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: <Widget>[
-                                        Text(CompleteOrderHistoryData().getTotalCollected(index),
+                                        Text(getTotalCollected(index),
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 17,
@@ -214,7 +282,7 @@ class _CompleteOrderHistoryViewState extends State<CompleteOrderHistoryView> {
                                         SizedBox(
                                           height: 10,
                                         ),
-                                        Text(CompleteOrderHistoryData().getIncome(index),
+                                        Text(getIncome(index),
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 17,
