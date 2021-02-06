@@ -211,6 +211,7 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
 
                           final IncomeModelFromJson singup =
                               await createEarn(incomeData);
+                              await updateArrivedOrder();
                           setState(() {
                             _singup = singup;
                           });
