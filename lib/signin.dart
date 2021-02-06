@@ -178,11 +178,21 @@ class MyCustomFormState extends State<MyCustomForm> {
             height: 15,
           ),
           Container(
-            child: Text(
+            child: GestureDetector(
+              child: Text(
               "Forgot Password?",
               style:
                   TextStyle(color: Colors.black, fontWeight: FontWeight.w800),
             ),
+            onTap: (){
+              ///////////////////////////////////////////////////////////////////////
+                final snackBar = SnackBar(content: Text("Incorrect Password", textAlign: TextAlign.center,),
+
+                backgroundColor: Colors.red,);
+                Scaffold.of(context).showSnackBar(snackBar);
+              ///////////////////////////////////////////////////////////////////////
+            },
+            )
           ),
           SizedBox(
             height: 20,
