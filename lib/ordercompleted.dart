@@ -46,6 +46,7 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
 
     IncomeModelFromJson _singup;
   List<OrderModel> _notes = List<OrderModel>();
+  OrderModel commonListGetData= new OrderModel() ;
 
   Future<List<OrderModel>> getOrders() async {
     final String apiUrl = orderPickApi;
@@ -70,6 +71,36 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
     }
     return filterNotes;
   }
+
+        Future<bool> updateArrivedOrder() async {
+    final String apiUrl = pickOrderApi;
+    final response = await http.post(apiUrl + commonListGetData.orderId, body: {
+      "deliverPersonId":userDetails.id,
+      "state": "Order Completed",
+    });
+    
+    final String apiUrl_1 = checkoutStates;
+     final response1 = await http.post(apiUrl_1 + commonListGetData.orderId, body: {
+      "deliverPersonId":userDetails.id,
+      "state": "Order Completed",
+    });
+
+    bool notesJson = false;
+
+    if (response.statusCode == 200) {
+      notesJson = true;
+    }
+    return notesJson;
+  }
+
+          @override
+  void initState() {
+    commonListGetData =
+        commonListData; // other details customer name ..(customer data..)
+       super.initState();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
