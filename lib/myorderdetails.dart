@@ -623,8 +623,8 @@ SellerModel sellersDetails1 = SellerModel();
                                                     fontWeight:
                                                         FontWeight.bold)),
                                             onPressed: (()  async{
-                                              // final bool user =
-                                              //     await updateArrivedOrder();
+                                              final bool user =
+                                                  await updateArrivedOrder();
 
                                               setState(() {
                                               Navigator.push(

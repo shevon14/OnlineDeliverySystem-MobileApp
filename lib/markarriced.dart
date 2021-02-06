@@ -361,8 +361,8 @@ class _MarkArrivedViewState extends State<MarkArrivedView> {
                                                     fontWeight:
                                                         FontWeight.bold)),
                                             onPressed: (()async {
-                                              // final bool user =
-                                              //     await updateCollectOrder();
+                                              final bool user =
+                                                  await updateCollectOrder();
 
                                               setState(() {
                                               Navigator.push(
