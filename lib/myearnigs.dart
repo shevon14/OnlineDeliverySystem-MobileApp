@@ -1,5 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:online_delivey_system_app/nav_drawer.dart';
+
+import 'apiUrl/api.dart';
+import 'common/common_data.dart';
+import 'entities/income_model.dart';
+import 'package:http/http.dart' as http;
 
 class CashMangementView extends StatefulWidget {
   @override
@@ -7,6 +14,40 @@ class CashMangementView extends StatefulWidget {
 }
 
 class _CashMangementViewState extends State<CashMangementView> {
+
+    List<IncomeModelFromJson> _notes = List<IncomeModelFromJson>();
+
+          Future<List<IncomeModelFromJson>> getOrders() async {
+    final String apiUrl = completeIncome;
+    final response = await http.get(apiUrl +userDetails.id);
+
+    var notes = List<IncomeModelFromJson>();
+    var filterNotes = List<IncomeModelFromJson>();
+    String preOrderId;
+
+    if (response.statusCode == 200) {
+      var notesJson1 = json.decode(response.body);
+      for (var noteJson1 in notesJson1) {
+        notes.add(IncomeModelFromJson.fromJson(noteJson1));
+      }
+    }
+    return notes;
+  }
+
+     @override
+  void initState() {
+    getOrders().then((value) {
+      setState(() {
+        _notes.addAll(value);
+        print(_notes[0].uId);
+        int getTotal= totalData().getTotal(_notes);
+        print(getTotal.toString());
+        //print(_notes[0].orderId);
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -247,5 +288,19 @@ class _CashMangementViewState extends State<CashMangementView> {
         )
       ]))),
     ));
+  }
+}
+
+class totalData{
+  int total=0;
+  int getTotal(List<IncomeModelFromJson> _notes1) {
+    for (var i in _notes1){
+    total=total+int.parse(i.totalCollected);
+    print(total.toString());
+    }
+    //   for (var i=0; i< _notes1.length;i++){
+    // total=total+int.parse(_notes1[i].totalCollected);
+    // }
+return total;
   }
 }
