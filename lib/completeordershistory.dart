@@ -148,7 +148,7 @@ class _CompleteOrderHistoryViewState extends State<CompleteOrderHistoryView> {
 
   String getDate(int index) {
     return //"LKR 500.00";//
-    _notes[index].uId;//date.toString();
+    _notes[index].date.toString();//date.toString();
   }
 
   String getTotalCollected(int index) {
@@ -203,16 +203,16 @@ class _CompleteOrderHistoryViewState extends State<CompleteOrderHistoryView> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Row(
-                                      children: <Widget>[
-                                        Text(getId(index),
-                                            style: TextStyle(
-                                                color: Colors.indigo[900],
-                                                fontWeight: FontWeight.w900,
-                                                fontSize: 18)),
+                                    // Row(
+                                    //   children: <Widget>[
+                                    //     Text(getId(index),
+                                    //         style: TextStyle(
+                                    //             color: Colors.indigo[900],
+                                    //             fontWeight: FontWeight.w900,
+                                    //             fontSize: 10)),
                                        
-                                      ],
-                                    ),
+                                    //   ],
+                                    // ),
                                     Text(getPayment(index),
                                             style: TextStyle(
                                                 color: Colors.black,
@@ -274,7 +274,7 @@ class _CompleteOrderHistoryViewState extends State<CompleteOrderHistoryView> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: <Widget>[
-                                        Text(getTotalCollected(index),
+                                        Text('Rs.'+getTotalCollected(index)+'/=',
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 17,
@@ -282,7 +282,7 @@ class _CompleteOrderHistoryViewState extends State<CompleteOrderHistoryView> {
                                         SizedBox(
                                           height: 10,
                                         ),
-                                        Text(getIncome(index),
+                                        Text('Rs.'+getIncome(index)+'/=',
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 17,
