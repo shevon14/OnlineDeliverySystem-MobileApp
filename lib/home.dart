@@ -62,7 +62,6 @@ class _HomeViewState extends State<HomeView> {
                   barrierDismissible: false,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      
                       title: Text("Exit"),
                       content: Text("Are you sure you want to exit?"),
                       actions: <Widget>[
