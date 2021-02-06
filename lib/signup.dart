@@ -53,7 +53,7 @@ class MyCustomForm extends StatefulWidget {
 }
 
 
-  Future<SingupModel> createSingup(SingupModel userData) async {
+  Future<bool> createSingup(SingupModel userData) async {
     final String apiUrl = deliversRegApi;
     
     final response = await http.post(apiUrl, body: {
@@ -71,7 +71,7 @@ class MyCustomForm extends StatefulWidget {
     if (response.statusCode == 200) {
       final String responseString = response.body;
 
-      return singupModelFromJson(responseString);
+      return true;
     } else {
       return null;
     }
@@ -80,7 +80,7 @@ class MyCustomForm extends StatefulWidget {
 
 //Form and Validation part ekata
 class MyCustomFormState extends State<MyCustomForm> {
-  SingupModel _singup;
+  bool _singup=false;
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -364,15 +364,22 @@ class MyCustomFormState extends State<MyCustomForm> {
                     address: "ssssssssss",
                   );
 
-                  final SingupModel singup = await createSingup(deliverPeson);
+                  final bool singup = await createSingup(deliverPeson);
                   setState(() {
                     _singup = singup;
                   });
 
+                  if(_singup){
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => HomeView()),
                   );
+                  }
+                  else{
+                     final snackBar = SnackBar(content: Text( "User does not register pls try again...", textAlign: TextAlign.center,),
+                backgroundColor: Colors.red,);
+                Scaffold.of(context).showSnackBar(snackBar);
+                  }
                 },
               )),
           SizedBox(
