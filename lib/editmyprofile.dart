@@ -145,35 +145,35 @@ class MyCustomFormState extends State<MyCustomForm> {
           ),
         ),
         SizedBox(height: 3),
-        Container(
-          child: Padding(
-            padding: EdgeInsets.only(),
-            child: TextField(
-              controller: emailController,
-              keyboardType: TextInputType.emailAddress,
-              style: TextStyle(color: Theme.of(context).accentColor),
-              decoration: InputDecoration(
-                hintText: "Email Address",
-                hintStyle:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Theme.of(context).accentColor, width: 1.0)),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Theme.of(context).accentColor, width: 1.0)),
-                prefixIcon: const Icon(
-                  Icons.email,
-                  color: Colors.blue,
-                ),
-              ),
-              obscureText: false,
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
+        // Container(
+        //   child: Padding(
+        //     padding: EdgeInsets.only(),
+        //     child: TextField(
+        //       controller: emailController,
+        //       keyboardType: TextInputType.emailAddress,
+        //       style: TextStyle(color: Theme.of(context).accentColor),
+        //       decoration: InputDecoration(
+        //         hintText: "Email Address",
+        //         hintStyle:
+        //             TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        //         enabledBorder: UnderlineInputBorder(
+        //             borderSide: BorderSide(
+        //                 color: Theme.of(context).accentColor, width: 1.0)),
+        //         focusedBorder: UnderlineInputBorder(
+        //             borderSide: BorderSide(
+        //                 color: Theme.of(context).accentColor, width: 1.0)),
+        //         prefixIcon: const Icon(
+        //           Icons.email,
+        //           color: Colors.blue,
+        //         ),
+        //       ),
+        //       obscureText: false,
+        //     ),
+        //   ),
+        // ),
+        // SizedBox(
+        //   height: 10,
+        // ),
         Container(
           child: Padding(
             padding: EdgeInsets.only(),
@@ -229,35 +229,35 @@ class MyCustomFormState extends State<MyCustomForm> {
             ),
           ),
         ),
-        SizedBox(
-          height: 3,
-        ),
-        Container(
-          child: Padding(
-            padding: EdgeInsets.only(),
-            child: TextField(
-              controller: vehicleController,
-              keyboardType: TextInputType.text,
-              style: TextStyle(color: Theme.of(context).accentColor),
-              decoration: InputDecoration(
-                hintText: MyProfileData().getVehicleType(),
-                hintStyle:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Theme.of(context).accentColor, width: 1.0)),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Theme.of(context).accentColor, width: 1.0)),
-                prefixIcon: const Icon(
-                  Icons.local_shipping,
-                  color: Colors.blue,
-                ),
-              ),
-              obscureText: false,
-            ),
-          ),
-        ),
+        // SizedBox(
+        //   height: 3,
+        // ),
+        // Container(
+        //   child: Padding(
+        //     padding: EdgeInsets.only(),
+        //     child: TextField(
+        //       controller: vehicleController,
+        //       keyboardType: TextInputType.text,
+        //       style: TextStyle(color: Theme.of(context).accentColor),
+        //       decoration: InputDecoration(
+        //         hintText: MyProfileData().getVehicleType(),
+        //         hintStyle:
+        //             TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        //         enabledBorder: UnderlineInputBorder(
+        //             borderSide: BorderSide(
+        //                 color: Theme.of(context).accentColor, width: 1.0)),
+        //         focusedBorder: UnderlineInputBorder(
+        //             borderSide: BorderSide(
+        //                 color: Theme.of(context).accentColor, width: 1.0)),
+        //         prefixIcon: const Icon(
+        //           Icons.local_shipping,
+        //           color: Colors.blue,
+        //         ),
+        //       ),
+        //       obscureText: false,
+        //     ),
+        //   ),
+        // ),
         SizedBox(
           height: 3,
         ),
@@ -287,35 +287,35 @@ class MyCustomFormState extends State<MyCustomForm> {
             ),
           ),
         ),
-        SizedBox(
-          height: 3,
-        ),
-        Container(
-          child: Padding(
-            padding: EdgeInsets.only(),
-            child: TextField(
-              controller: passwordController,
-              keyboardType: TextInputType.visiblePassword,
-              style: TextStyle(color: Theme.of(context).accentColor),
-              decoration: InputDecoration(
-                hintText: "Password",
-                hintStyle:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Theme.of(context).accentColor, width: 1.0)),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Theme.of(context).accentColor, width: 1.0)),
-                prefixIcon: const Icon(
-                  Icons.vpn_key,
-                  color: Colors.blue,
-                ),
-              ),
-              obscureText: true,
-            ),
-          ),
-        ),
+        // SizedBox(
+        //   height: 3,
+        // ),
+        // Container(
+        //   child: Padding(
+        //     padding: EdgeInsets.only(),
+        //     child: TextField(
+        //       controller: passwordController,
+        //       keyboardType: TextInputType.visiblePassword,
+        //       style: TextStyle(color: Theme.of(context).accentColor),
+        //       decoration: InputDecoration(
+        //         hintText: "Password",
+        //         hintStyle:
+        //             TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        //         enabledBorder: UnderlineInputBorder(
+        //             borderSide: BorderSide(
+        //                 color: Theme.of(context).accentColor, width: 1.0)),
+        //         focusedBorder: UnderlineInputBorder(
+        //             borderSide: BorderSide(
+        //                 color: Theme.of(context).accentColor, width: 1.0)),
+        //         prefixIcon: const Icon(
+        //           Icons.vpn_key,
+        //           color: Colors.blue,
+        //         ),
+        //       ),
+        //       obscureText: true,
+        //     ),
+        //   ),
+        // ),
         SizedBox(
           height: 20,
         ),
