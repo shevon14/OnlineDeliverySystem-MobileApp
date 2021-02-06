@@ -622,18 +622,18 @@ SellerModel sellersDetails1 = SellerModel();
                                                     color: Colors.indigo[900],
                                                     fontWeight:
                                                         FontWeight.bold)),
-                                            onPressed: (()  async{
-                                              final bool user =
-                                                  await updateArrivedOrder();
+                                            onPressed: (()  {
+                                              // final bool user =
+                                              //     await updateArrivedOrder();
 
-                                              setState(() {
+                                              // setState(() {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         MarkArrivedView()),
                                               );
-                                               });
+                                              //  });
                                             })),
                                       ),
                                       Padding(

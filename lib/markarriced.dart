@@ -361,18 +361,18 @@ class _MarkArrivedViewState extends State<MarkArrivedView> {
                                                     color: Colors.indigo[900],
                                                     fontWeight:
                                                         FontWeight.bold)),
-                                            onPressed: (()async {
-                                              final bool user =
-                                                  await updateCollectOrder();
+                                            onPressed: (() {
+                                              // final bool user =
+                                              //     await updateCollectOrder();
 
-                                              setState(() {
+                                              // setState(() {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         OrderCompletedView()),
                                               );
-                                              });
+                                              // });
                                             })),
                                       ),
                                       Padding(
