@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:online_delivey_system_app/myorders.dart';
 import 'package:online_delivey_system_app/nav_drawer.dart';
 import 'package:http/http.dart' as http;
@@ -54,7 +55,34 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
+        home: WillPopScope(
+            onWillPop: () {
+              return showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      
+                      title: Text("Exit"),
+                      content: Text("Are you sure you want to exit?"),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text("YES"),
+                          onPressed: () {
+                            SystemNavigator.pop();
+                          },
+                        ),
+                        FlatButton(
+                          child: Text("NO"),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        )
+                      ],
+                    );
+                  });
+            }, child:
+        Scaffold(
       drawer: NavDrawer(),
       appBar: AppBar(
         iconTheme: new IconThemeData(color: Colors.white),
@@ -204,6 +232,6 @@ class _HomeViewState extends State<HomeView> {
           ],
         ),
       ),
-    ));
+    )));
   }
 }
