@@ -50,7 +50,7 @@ class MyCustomForm extends StatefulWidget {
 //For the Form and Validation part
 class MyCustomFormState extends State<MyCustomForm> {
 
-  bool _singup;   
+  bool _singup;  
 
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
@@ -163,7 +163,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     _singup = singup;
                   });
 
-                 if(singup!=null){
+                 if(singup){
                    prefs.setString('isLogIn','Yes');
                    prefs.setString('userEmail',userDetails.email);
                     Navigator.push(
@@ -171,7 +171,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     MaterialPageRoute(builder: (context) => HomeView()),
                   );
                   } else{
-                final snackBar = SnackBar(content: Text("Incorrect Password or mail", textAlign: TextAlign.center,),
+                final snackBar = SnackBar(content: Text( tostTextLogin, textAlign: TextAlign.center,),
                 backgroundColor: Colors.red,);
                 Scaffold.of(context).showSnackBar(snackBar);
                   }
@@ -259,8 +259,16 @@ var singupModel = List<UserDataModel>();
       print(userDetails);
       
       return true;
-    } else {
-      return null;
+    }
+    
+     else {
+      return false;
     }
   }
+   if (response.statusCode == 401) {
+     print(response.body.toString());
+     tostTextLogin=response.body.toString();
+
+ return false;
+     }
  }

@@ -100,6 +100,8 @@ class _MyOrderDetailViewState extends State<MyOrderDetailView> {
 OrderModel commonListGetData= new OrderModel() ;
 SellerModel sellersDetails1 = SellerModel();
 
+int keepTotal = 0;
+
 //for fill seller data
     Future<List<SellerModel>> getSellerData() async {   //get seller data by shopId 
     final String apiUrl = sellerDataApi;
@@ -145,7 +147,8 @@ SellerModel sellersDetails1 = SellerModel();
         notes.add(OrderModel.fromJson(noteJson));
       }
       for (var i = 0; i < notes.length; i++) {
-        getArricedTotal=getArricedTotal+int.parse(notes[i].total);
+        keepTotal=keepTotal+int.parse(notes[i].total);
+        getArricedTotal=keepTotal;
         List<ProductModel> productDetails = await getImgData(notes[i].productId);
         var path = productDetails[0].imgName;
         var newPath = path.substring(0, 7) +
