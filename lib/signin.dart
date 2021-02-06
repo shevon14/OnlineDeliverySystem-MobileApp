@@ -170,6 +170,10 @@ class MyCustomFormState extends State<MyCustomForm> {
                     context,
                     MaterialPageRoute(builder: (context) => HomeView()),
                   );
+                  } else{
+                final snackBar = SnackBar(content: Text("Incorrect Password or mail", textAlign: TextAlign.center,),
+                backgroundColor: Colors.red,);
+                Scaffold.of(context).showSnackBar(snackBar);
                   }
                   
                 },
@@ -185,12 +189,6 @@ class MyCustomFormState extends State<MyCustomForm> {
                   TextStyle(color: Colors.black, fontWeight: FontWeight.w800),
             ),
             onTap: (){
-              ///////////////////////////////////////////////////////////////////////
-                final snackBar = SnackBar(content: Text("Incorrect Password", textAlign: TextAlign.center,),
-
-                backgroundColor: Colors.red,);
-                Scaffold.of(context).showSnackBar(snackBar);
-              ///////////////////////////////////////////////////////////////////////
             },
             )
           ),
