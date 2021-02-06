@@ -17,8 +17,8 @@ class NavDrawer extends StatefulWidget {
 
 class MyDrawerDetails {
   Map fetched_data = {
-    "Name": userDetails.fullName,
-    "Email": userDetails.email,
+    "Name": userDetails.fullName==null?"": userDetails.fullName,
+    "Email": userDetails.email==null?"":userDetails.email,
   };
 
 //function to fetch the data
