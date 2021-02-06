@@ -234,14 +234,14 @@ var singupModel = List<UserDataModel>();
     bool login=false;
     
     final response = await http.post(apiUrl, body: {
-      "email": "qq@12.com",//userData.email,
+      "email": userData.email,//"qq@12.com",//
       "password": userData.password,
     });
-    final response_1 = await http.get(apiUrl_1+"qq@12.com");
+    final response_1 = await http.get(apiUrl_1+userData.email);
     // userData.email);
     
 
-    if (response.statusCode == 401) {
+    if (response.statusCode == 200) {
       final String responseString = response.body;
       login=true;
        if (response_1.statusCode == 200) {

@@ -4,6 +4,8 @@ import 'package:online_delivey_system_app/completeordershistory.dart';
 import 'package:online_delivey_system_app/myearnigs.dart';
 import 'package:online_delivey_system_app/myorders.dart';
 import 'package:online_delivey_system_app/myprofileview.dart';
+import 'package:online_delivey_system_app/signin.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'common/common_data.dart';
 import 'entities/userData_model.dart';
@@ -161,11 +163,14 @@ class _NavDrawerState extends State<NavDrawer> {
             title: Text('Log Out',
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold)),
-            onTap: () {
-              // Navigator.push(
-              //   context,
-              //   CupertinoPageRoute(builder: (context) => MyProfile()),
-              // );
+            onTap: ()  async{
+              final SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.remove('isLogIn');
+               prefs.setString('isLogIn','');
+              Navigator.push(
+                context,
+                CupertinoPageRoute(builder: (context) => SignInView()),
+              );
             },
           ),
         ],
