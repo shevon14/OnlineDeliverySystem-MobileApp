@@ -1,8 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:online_delivey_system_app/home.dart';
 import 'package:online_delivey_system_app/signin.dart';
 import 'package:online_delivey_system_app/signup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:http/http.dart' as http;
+
+import 'apiUrl/api.dart';
+import 'common/common_data.dart';
+import 'entities/singup_model.dart';
+import 'entities/userData_model.dart';
 
 void main() {
   runApp(MyApp());
@@ -40,7 +49,21 @@ class HomeController extends StatelessWidget {
         var x = prefs.data;
         if(prefs.hasData){
             if(x.getString('isLogIn') == 'Yes'){
+               var userDetailsEmail=x.getString('userEmail').toString();
+                 loadSingup(userDetailsEmail);
+
+              // final String apiUrl_1 = deliversLoginUserDataApi;
+              // var singupModel = List<UserDataModel>();
+             
+              //  final response_1 =  http.get(apiUrl_1+userDetailsEmail);
+              //     if (response_1.statusCode == 200) {
+      // var notesJson = json.decode(response_1.body);
+      // singupModel.add(UserDataModel.fromJson(notesJson));
+      // userDetails = singupModel[0];
+
+
               return MaterialApp(home : HomeView());
+                //  }
             }
         }
         return MaterialApp(home: SignInView());
@@ -48,3 +71,27 @@ class HomeController extends StatelessWidget {
   }
 }
 
+ Future<bool> loadSingup(userData) async {
+    final String apiUrl_1 = deliversLoginUserDataApi;
+var singupModel = List<UserDataModel>();
+
+    bool login=false;
+    
+    final response_1 = await http.get(apiUrl_1+ userData);
+    // userData.email);
+    
+
+    
+      
+       if (response_1.statusCode == 200) {
+         login=true;
+      var notesJson = json.decode(response_1.body);
+      singupModel.add(UserDataModel.fromJson(notesJson));
+      userDetails = singupModel[0];
+      print(userDetails);
+      
+      return true;
+    } else {
+      return null;
+    }
+ }

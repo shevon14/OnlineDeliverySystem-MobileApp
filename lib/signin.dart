@@ -157,12 +157,15 @@ class MyCustomFormState extends State<MyCustomForm> {
 
                    final bool singup = await createSingup(deliverPeson);
                    final SharedPreferences prefs = await SharedPreferences.getInstance();
-                    prefs.setString('isLogIn','Yes');
+                    
+                    
                   setState(() {
                     _singup = singup;
                   });
 
                  if(singup!=null){
+                   prefs.setString('isLogIn','Yes');
+                   prefs.setString('userEmail',userDetails.email);
                     Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => HomeView()),
