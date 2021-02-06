@@ -156,28 +156,7 @@ class _MarkArrivedViewState extends State<MarkArrivedView> {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: new ThemeData(primaryColor: Color(0xFF4A184C)),
-        home: WillPopScope(
-            onWillPop: () {
-              return showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      
-                      title: Text("Warning!"),
-                      content: Text("Please Collect the amout from Customer"),
-                      actions: <Widget>[
-                        FlatButton(
-                          child: Text("OK"),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        )
-                      ],
-                    );
-                  });
-            }, child:
-        Scaffold(
+        home:  Scaffold(
             drawer: NavDrawer(),
             appBar: AppBar(
               iconTheme: new IconThemeData(color: Colors.white),
@@ -371,7 +350,7 @@ class _MarkArrivedViewState extends State<MarkArrivedView> {
                                     children: <Widget>[
                                       SizedBox(
                                         height: 50,
-                                        width: 300,
+                                        width: 150,
                                         child: new RaisedButton(
                                             color: Colors.white,
                                             shape: RoundedRectangleBorder(
@@ -396,35 +375,35 @@ class _MarkArrivedViewState extends State<MarkArrivedView> {
                                               });
                                             })),
                                       ),
-                                      // Padding(
-                                      //     padding: EdgeInsets.only(
-                                      //         top: 10, left: 10)),
-                                      // SizedBox(
-                                      //   height: 50,
-                                      //   width: 150,
-                                      //   child: new RaisedButton(
-                                      //       color: Colors.white,
-                                      //       shape: RoundedRectangleBorder(
-                                      //           borderRadius:
-                                      //               BorderRadius.circular(5)),
-                                      //       child: Text('Cancel',
-                                      //           style: TextStyle(
-                                      //               color: Colors.indigo[900],
-                                      //               fontWeight:
-                                      //                   FontWeight.bold)),
-                                      //       onPressed: (() {
-                                      //         Navigator.push(
-                                      //           context,
-                                      //           MaterialPageRoute(
-                                      //               builder: (context) =>
-                                      //                  MyOrdersView()),
-                                      //         );
-                                      //       })),
-                                      // )
+                                      Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 10, left: 10)),
+                                      SizedBox(
+                                        height: 50,
+                                        width: 150,
+                                        child: new RaisedButton(
+                                            color: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5)),
+                                            child: Text('Cancel',
+                                                style: TextStyle(
+                                                    color: Colors.indigo[900],
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            onPressed: (() {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                       MyOrdersView()),
+                                              );
+                                            })),
+                                      )
                                     ],
                                   ),
                                 ]))))
               ],
-            )))));
+            ))));
   }
 }
