@@ -30,8 +30,8 @@ class MyDrawerDetails {
 }
 
 class _NavDrawerState extends State<NavDrawer> {
-  // UserDataModel userDetails1 =new UserDataModel();
-  // userDetails1=userDetails;
+  //  UserDataModel userDetails1 =new UserDataModel();
+  //  userDetails1=userDetails;
   @override
   Widget build(BuildContext context) {
     return Drawer(

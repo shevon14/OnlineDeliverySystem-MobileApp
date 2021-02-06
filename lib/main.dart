@@ -34,11 +34,17 @@ class HomeController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //navigate to startHomeView
-    // print('start');
-    // print(isSignIn);
-    //return isSignIn == 'Yes' ? HomeView() : SignInView();
-    return SignInView();
+    return FutureBuilder(
+      future: SharedPreferences.getInstance(),
+      builder: (BuildContext context, AsyncSnapshot<SharedPreferences> prefs){
+        var x = prefs.data;
+        if(prefs.hasData){
+            if(x.getString('isLogIn') == 'Yes'){
+              return MaterialApp(home : HomeView());
+            }
+        }
+        return MaterialApp(home: SignInView());
+      });
   }
 }
 
