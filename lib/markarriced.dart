@@ -128,7 +128,7 @@ class _MarkArrivedViewState extends State<MarkArrivedView> {
     var data=itemsDetails.length==null? 1:itemsDetails.length;
     var total=int.parse(commonListGetData.total);
     var uprice= int.parse(commonListGetData.uniPrice);
-    var earn1=(total-uprice)*data;
+    var earn1=(total-uprice);
     getArricedEarn=earn1;
     return (earn1);
   }
