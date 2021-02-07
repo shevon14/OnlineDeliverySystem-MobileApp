@@ -126,7 +126,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               keyboardType: TextInputType.text,
               style: TextStyle(color: Theme.of(context).accentColor),
               decoration: InputDecoration(
-                hintText: MyProfileData().getName(),
+                hintText: 'Name : ' + MyProfileData().getName(),
                 hintStyle:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                 enabledBorder: UnderlineInputBorder(
@@ -182,7 +182,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               keyboardType: TextInputType.number,
               style: TextStyle(color: Theme.of(context).accentColor),
               decoration: InputDecoration(
-                hintText: MyProfileData().getConatact(),
+                hintText: 'Contact : ' + MyProfileData().getConatact(),
                 hintStyle:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                 enabledBorder: UnderlineInputBorder(
@@ -211,7 +211,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               keyboardType: TextInputType.number,
               style: TextStyle(color: Theme.of(context).accentColor),
               decoration: InputDecoration(
-                hintText: MyProfileData().getDrivingLicencesID(),
+                hintText: 'Licence No : '+ MyProfileData().getDrivingLicencesID(),
                 hintStyle:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                 enabledBorder: UnderlineInputBorder(
@@ -269,7 +269,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               keyboardType: TextInputType.number,
               style: TextStyle(color: Theme.of(context).accentColor),
               decoration: InputDecoration(
-                hintText: MyProfileData().getVehicleNo(),
+                hintText: 'Vehicle No : '+ MyProfileData().getVehicleNo(),
                 hintStyle:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                 enabledBorder: UnderlineInputBorder(

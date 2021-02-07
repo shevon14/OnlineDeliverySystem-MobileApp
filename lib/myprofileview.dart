@@ -111,17 +111,17 @@ class _MyProfileViewState extends State<MyProfileView> {
                         ),
                       ),
                     ),
-                    Card(
-                      child: ListTile(
-                        title: Text(
-                          "Vehicle Type: " + MyProfileData().getVehicleType(),
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ),
+                    // Card(
+                    //   child: ListTile(
+                    //     title: Text(
+                    //       "Vehicle Type: " + MyProfileData().getVehicleType(),
+                    //       style: TextStyle(
+                    //           fontSize: 15,
+                    //           color: Colors.black,
+                    //           fontWeight: FontWeight.w500),
+                    //     ),
+                    //   ),
+                    // ),
                     Card(
                       child: ListTile(
                         title: Text(
