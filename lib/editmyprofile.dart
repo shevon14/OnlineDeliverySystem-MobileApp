@@ -327,12 +327,12 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: Text(' Save ', style: TextStyle(color: Colors.blue)),
             onPressed: (() async {
                   var deliverPeson = SingupModel(
-                    fullName: nameController.text,
-                    email: emailController.text,
-                    conatct: nameController.text,
-                    drivingLicenceId: dLicenceController.text,
-                    vehicaleType: vehicleController.text,
-                    vehicaleLicenceNumber: vehicleLicenceController.text,
+                    fullName: nameController.text==""?userDetails.fullName:nameController.text,
+                    email: emailController.text==""?userDetails.email:nameController.text,
+                    conatct: nameController.text==""?userDetails.conatct:nameController.text,
+                    drivingLicenceId: dLicenceController.text==""?userDetails.drivingLicenceId:nameController.text,
+                    vehicaleType: vehicleController.text==""?userDetails.vehicaleType:nameController.text,
+                    vehicaleLicenceNumber: vehicleLicenceController.text==""?userDetails.vehicaleLicenceNumber:nameController.text,
                    // password: passwordController.text,
                     userType: "Deliver",
                     address: "ssssssssss",
