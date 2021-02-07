@@ -141,8 +141,8 @@ class _PickUpDetailViewState extends State<PickUpDetailView> {
             id: notes[i].productId,
             productName: notes[i].productName,
             availableQuantity: notes[i].quantity,
-            // imgName:path);
-            imgName: newPath);
+            imgName:path);
+           // imgName: newPath);
         itemsDetails.add(itemsDetails_1);
       }
     }
