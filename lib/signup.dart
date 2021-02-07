@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,8 +7,11 @@ import 'package:online_delivey_system_app/home.dart';
 import 'package:online_delivey_system_app/signin.dart';
 import 'package:online_delivey_system_app/ui_curve_design.dart';
 import 'apiUrl/api.dart';
+import 'common/common_data.dart';
 import 'entities/singup_model.dart';
 import 'package:http/http.dart' as http;
+
+import 'entities/userData_model.dart';
 
 class SignUpView extends StatefulWidget {
   @override
@@ -77,10 +82,51 @@ class MyCustomForm extends StatefulWidget {
     }
   }
 
+  
+
 
 //Form and Validation part ekata
 class MyCustomFormState extends State<MyCustomForm> {
   bool _singup=false;
+  
+    bool _login=false;
+
+    Future<bool> createSingin(SingupModel userData) async {
+    final String apiUrl = deliversLoginApi;
+    final String apiUrl_1 = deliversLoginUserDataApi;
+var singupModel = List<UserDataModel>();
+
+    
+    final response = await http.post(apiUrl, body: {
+      "email": userData.email,//"qq@12.com",//
+      "password": userData.password,
+    });
+    final response_1 = await http.get(apiUrl_1+userData.email);
+    // userData.email);
+    
+
+    if (response.statusCode == 200) {
+      final String responseString = response.body;
+       if (response_1.statusCode == 200) {
+      var notesJson = json.decode(response_1.body);
+      singupModel.add(UserDataModel.fromJson(notesJson));
+      userDetails = singupModel[0];
+      print(userDetails);
+      
+      return true;
+    }
+    
+     else {
+      return false;
+    }
+  }
+   if (response.statusCode == 401) {
+     print(response.body.toString());
+     tostTextLogin=response.body.toString();
+
+ return false;
+     }
+ }
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -365,14 +411,19 @@ class MyCustomFormState extends State<MyCustomForm> {
                   );
 
                   final bool singup = await createSingup(deliverPeson);
+                  final bool login = await createSingin(deliverPeson);
                   setState(() {
                     _singup = singup;
+                    _login = login;
                   });
 
                   if(_singup){
+
+                    if( _login){
+
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeView()),
+                    MaterialPageRoute(builder: (context) => SignInView()),
                   );
                   }
                   else{
@@ -380,6 +431,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                 backgroundColor: Colors.red,);
                 Scaffold.of(context).showSnackBar(snackBar);
                   }
+                  }
+                  
                 },
               )),
           SizedBox(
