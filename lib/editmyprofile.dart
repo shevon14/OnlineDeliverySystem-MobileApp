@@ -328,11 +328,11 @@ class MyCustomFormState extends State<MyCustomForm> {
             onPressed: (() async {
                   var deliverPeson = SingupModel(
                     fullName: nameController.text==""?userDetails.fullName:nameController.text,
-                    email: emailController.text==""?userDetails.email:nameController.text,
+                    email: emailController.text==""?userDetails.email:emailController.text,
                     conatct: nameController.text==""?userDetails.conatct:nameController.text,
-                    drivingLicenceId: dLicenceController.text==""?userDetails.drivingLicenceId:nameController.text,
-                    vehicaleType: vehicleController.text==""?userDetails.vehicaleType:nameController.text,
-                    vehicaleLicenceNumber: vehicleLicenceController.text==""?userDetails.vehicaleLicenceNumber:nameController.text,
+                    drivingLicenceId: dLicenceController.text==""?userDetails.drivingLicenceId:dLicenceController.text,
+                    vehicaleType: vehicleController.text==""?userDetails.vehicaleType:vehicleController.text,
+                    vehicaleLicenceNumber: vehicleLicenceController.text==""?userDetails.vehicaleLicenceNumber:vehicleLicenceController.text,
                    // password: passwordController.text,
                     userType: "Deliver",
                     address: "ssssssssss",
