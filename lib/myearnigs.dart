@@ -14,12 +14,11 @@ class CashMangementView extends StatefulWidget {
 }
 
 class _CashMangementViewState extends State<CashMangementView> {
+  List<IncomeModelFromJson> _notes = List<IncomeModelFromJson>();
 
-    List<IncomeModelFromJson> _notes = List<IncomeModelFromJson>();
-
-          Future<List<IncomeModelFromJson>> getOrders() async {
+  Future<List<IncomeModelFromJson>> getOrders() async {
     final String apiUrl = completeIncome;
-    final response = await http.get(apiUrl +userDetails.id);
+    final response = await http.get(apiUrl + userDetails.id);
 
     var notes = List<IncomeModelFromJson>();
     var filterNotes = List<IncomeModelFromJson>();
@@ -34,13 +33,13 @@ class _CashMangementViewState extends State<CashMangementView> {
     return notes;
   }
 
-     @override
+  @override
   void initState() {
     getOrders().then((value) {
       setState(() {
         _notes.addAll(value);
         print(_notes[0].uId);
-        int getTotal= totalData().getTotal(_notes);
+        int getTotal = totalData().getTotal(_notes);
         print(getTotal.toString());
         //print(_notes[0].orderId);
       });
@@ -70,7 +69,7 @@ class _CashMangementViewState extends State<CashMangementView> {
               Icon(Icons.payment, size: 25, color: Colors.blue),
               Padding(padding: EdgeInsets.all(5)),
               Text(
-                "Deposit Amout",
+                "Deposits Amout",
                 style: TextStyle(
                     color: Colors.indigo[900],
                     fontWeight: FontWeight.w800,
@@ -82,89 +81,56 @@ class _CashMangementViewState extends State<CashMangementView> {
         Card(
             child: Padding(
                 padding: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                child: Column(
                   children: <Widget>[
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        Text("Total to be deposited",
+                        Text("Total - ",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 17,
                                 fontWeight: FontWeight.w800)),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Icon(Icons.star,
-                                size: 20, color: Colors.blue),
-                            Padding(padding: EdgeInsets.all(5)),
-                            Text("Cash on hand",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w800)),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Padding(
-                            padding: EdgeInsets.only(left: 30),
-                            child: Text("yesterday float",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600))),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Padding(
-                            padding: EdgeInsets.only(left: 30),
-                            child: Text("Cash collected",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600))),
-                        Text(""),
-                      ],
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        Text("LKR 5800.00",
+                        Text(
+                            "Rs." +
+                                totalData().getTotal(_notes).toString() +
+                                '/=',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 17,
                                 fontWeight: FontWeight.w800)),
-                        SizedBox(
-                          height: 38,
-                        ),
-                        Text("LKR 2000.00",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600)),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text("LKR 8200.00",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600)),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text("LKR 10200.00",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600)),
                       ],
                     ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: _notes.length,
+                        itemBuilder: (context, index) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text(_notes[index].date.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w800)),
+                              Text("Rs."+ _notes[index].income,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w800)),
+                            ],
+                          );
+                        })
                   ],
                 ))),
+        SizedBox(
+          height: 20,
+        ),
         Padding(
           padding: EdgeInsets.all(5),
           child: Row(
@@ -172,7 +138,7 @@ class _CashMangementViewState extends State<CashMangementView> {
               Icon(Icons.receipt, size: 25, color: Colors.blue),
               Padding(padding: EdgeInsets.all(5)),
               Text(
-                "Your Receipts",
+                "Your Receipts - Online Payments",
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w800,
@@ -208,7 +174,7 @@ class _CashMangementViewState extends State<CashMangementView> {
                     ),
                     SizedBox(
                       width: 80,
-                      child: Text("Recepit",
+                      child: Text("Recepit ID",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.black,
@@ -291,16 +257,16 @@ class _CashMangementViewState extends State<CashMangementView> {
   }
 }
 
-class totalData{
-  int total=0;
+class totalData {
+  int total = 0;
   int getTotal(List<IncomeModelFromJson> _notes1) {
-    for (var i in _notes1){
-    total=total+int.parse(i.totalCollected);
-    print(total.toString());
+    for (var i in _notes1) {
+      total = total + int.parse(i.totalCollected);
+      print(total.toString());
     }
     //   for (var i=0; i< _notes1.length;i++){
     // total=total+int.parse(_notes1[i].totalCollected);
     // }
-return total;
+    return total;
   }
 }
