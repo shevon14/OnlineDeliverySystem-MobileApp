@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:online_delivey_system_app/home.dart';
 import 'package:online_delivey_system_app/nav_drawer.dart';
 
 import 'apiUrl/api.dart';
@@ -51,8 +52,15 @@ class _CashMangementViewState extends State<CashMangementView> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-      drawer: NavDrawer(),
       appBar: AppBar(
+        leading: IconButton(icon: Icon(Icons.keyboard_backspace), 
+              onPressed: (){
+                Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeView()),
+                          );
+              } ),
         iconTheme: new IconThemeData(color: Colors.white),
         titleSpacing: -5,
         title: Text('My Earnings',

@@ -52,10 +52,17 @@ class _MyProfileViewState extends State<MyProfileView> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-            drawer: NavDrawer(),
             appBar: AppBar(
               iconTheme: new IconThemeData(color: Colors.white),
               titleSpacing: -5,
+              leading: IconButton(icon: Icon(Icons.keyboard_backspace), 
+              onPressed: (){
+                Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeView()),
+                          );
+              } ),
               title: Text('My Profile',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold)),

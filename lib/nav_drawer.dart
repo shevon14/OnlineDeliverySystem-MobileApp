@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:online_delivey_system_app/aboutus.dart';
 import 'package:online_delivey_system_app/completeordershistory.dart';
 import 'package:online_delivey_system_app/myearnigs.dart';
 import 'package:online_delivey_system_app/myorders.dart';
@@ -145,10 +146,10 @@ class _NavDrawerState extends State<NavDrawer> {
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold)),
             onTap: () {
-              // Navigator.push(
-              //   context,
-              //   CupertinoPageRoute(builder: (context) => MyProfile()),
-              // );
+              Navigator.push(
+                context,
+                CupertinoPageRoute(builder: (context) => AboutUS()),
+              );
             },
           ),
           ListTile(

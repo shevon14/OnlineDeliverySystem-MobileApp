@@ -7,6 +7,7 @@ import 'package:online_delivey_system_app/signup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:splashscreen/splashscreen.dart';
 
 import 'apiUrl/api.dart';
 import 'common/common_data.dart';
@@ -22,7 +23,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: new ThemeData(primaryColor: Colors.deepOrange[900]),
-        home: HomeController(),
+        home: SplashScreen(
+          seconds: 5,
+          navigateAfterSeconds: HomeController(),
+          title: Text("Welcome!", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.blue),),
+          image: Image(image: new AssetImage('assets/splashcover.gif')),
+          photoSize: 100,
+          loaderColor: Colors.blue,
+        ), 
+        
         routes: <String, WidgetBuilder>{
           '/home': (BuildContext context) => HomeController(),
         },

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:online_delivey_system_app/home.dart';
 
 import 'apiUrl/api.dart';
 import 'common/common_data.dart';
@@ -171,8 +172,16 @@ class _CompleteOrderHistoryViewState extends State<CompleteOrderHistoryView> {
     return  MaterialApp(
         home: Scaffold(
             appBar: AppBar(
+              leading: IconButton(icon: Icon(Icons.keyboard_backspace), 
+              onPressed: (){
+                Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeView()),
+                          );
+              } ),
               iconTheme: new IconThemeData(color: Colors.white),
-              titleSpacing: 10,
+              titleSpacing: 2,
               title: Text('Complete Orders',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold)),

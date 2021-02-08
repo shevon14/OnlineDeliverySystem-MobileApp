@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:online_delivey_system_app/home.dart';
 import 'package:online_delivey_system_app/myprofileview.dart';
 
 import 'apiUrl/api.dart';
@@ -17,6 +18,14 @@ class EditProfile extends StatelessWidget {
         theme: new ThemeData(primarySwatch: Colors.blue),
         home: Scaffold(
             appBar: AppBar(
+              leading: IconButton(icon: Icon(Icons.keyboard_backspace), 
+              onPressed: (){
+                Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyProfileView()),
+                          );
+              } ),
               title: Text('Edit Profile'),
               backgroundColor: Colors.blue,
             ),
@@ -329,7 +338,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   var deliverPeson = SingupModel(
                     fullName: nameController.text==""?userDetails.fullName:nameController.text,
                     email: emailController.text==""?userDetails.email:emailController.text,
-                    conatct: nameController.text==""?userDetails.conatct:nameController.text,
+                    conatct:  contactController.text ==""?userDetails.conatct:contactController.text,
                     drivingLicenceId: dLicenceController.text==""?userDetails.drivingLicenceId:dLicenceController.text,
                     vehicaleType: vehicleController.text==""?userDetails.vehicaleType:vehicleController.text,
                     vehicaleLicenceNumber: vehicleLicenceController.text==""?userDetails.vehicaleLicenceNumber:vehicleLicenceController.text,
