@@ -111,7 +111,7 @@ class _CashMangementViewState extends State<CashMangementView> {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              Text(_notes[index].date.toString(),
+                              Text(_notes[index].date.toString().substring(0, 16),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.black,
