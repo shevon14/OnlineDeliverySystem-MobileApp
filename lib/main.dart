@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
           navigateAfterSeconds: HomeController(),
           title: Text("Welcome!", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.blue),),
           image: Image(image: new AssetImage('assets/splashcover.gif')),
-          useLoader: false,
           photoSize: 100,
           loaderColor: Colors.blue,
         ), 
