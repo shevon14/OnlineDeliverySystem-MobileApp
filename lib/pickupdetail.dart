@@ -633,11 +633,11 @@ class _PickUpDetailViewState extends State<PickUpDetailView> {
                                                   await updatePickOrder();
 
                                               setState(() {
-                                                Navigator.push(
+                                                Navigator.pushAndRemoveUntil(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          MyOrdersView()),
+                                                          MyOrdersView()),(route) => false,
                                                 );
                                               });
                                             })),

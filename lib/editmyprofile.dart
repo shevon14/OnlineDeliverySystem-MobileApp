@@ -352,9 +352,9 @@ class MyCustomFormState extends State<MyCustomForm> {
                   setState(() {
                     _singup = singup;
                   }); 
-              Navigator.push(
+              Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => MyProfileView()),
+                MaterialPageRoute(builder: (context) => MyProfileView()), (route) => false,
               );
             })),
       ],

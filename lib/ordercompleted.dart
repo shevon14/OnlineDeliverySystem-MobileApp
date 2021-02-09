@@ -215,9 +215,9 @@ class _OrderCompletedViewState extends State<OrderCompletedView> {
                           setState(() {
                             _singup = singup;
                           });
-                          Navigator.push(
+                          Navigator.pushAndRemoveUntil(
                             context,
-                            MaterialPageRoute(builder: (context) => HomeView()),
+                            MaterialPageRoute(builder: (context) => HomeView()),(route) => false,
                           );
                         })),
                   ),

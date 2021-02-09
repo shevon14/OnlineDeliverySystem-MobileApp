@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:loading/indicator/ball_pulse_indicator.dart';
+import 'package:loading/loading.dart';
 import 'package:online_delivey_system_app/home.dart';
 import 'package:online_delivey_system_app/signup.dart';
 import 'package:online_delivey_system_app/ui_curve_design.dart';
@@ -51,6 +53,7 @@ class MyCustomForm extends StatefulWidget {
 class MyCustomFormState extends State<MyCustomForm> {
 
   bool _singup;  
+  bool loading = false;
 
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
@@ -149,6 +152,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                 shape: new RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(30.0),
                 ),
+
                 onPressed: () async{
                   var deliverPeson = SingupModel(
                     email: emailController.text,
@@ -166,9 +170,9 @@ class MyCustomFormState extends State<MyCustomForm> {
                  if(singup){
                    prefs.setString('isLogIn','Yes');
                    prefs.setString('userEmail',userDetails.email);
-                    Navigator.push(
+                    Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeView()),
+                    MaterialPageRoute(builder: (context) => HomeView()), (route) => false,
                   );
                   } else{
                 final snackBar = SnackBar(content: Text( tostTextLogin, textAlign: TextAlign.center,),

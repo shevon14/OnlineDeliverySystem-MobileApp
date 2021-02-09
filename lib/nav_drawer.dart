@@ -168,9 +168,9 @@ class _NavDrawerState extends State<NavDrawer> {
               final SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs.remove('isLogIn');
                prefs.setString('isLogIn','');
-              Navigator.push(
+              Navigator.pushAndRemoveUntil(
                 context,
-                CupertinoPageRoute(builder: (context) => SignInView()),
+                CupertinoPageRoute(builder: (context) => SignInView()), (route) => false,
               );
             },
           ),
