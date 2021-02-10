@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +18,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   List<OrderModel> _notes = List<OrderModel>();
   List<OrderModel> _notes2 = List<OrderModel>();
+  Timer timer;
 
   Future<List<OrderModel>> getOrders() async {
     final String apiUrl = orderPickApi;
@@ -44,11 +46,14 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void initState() {
+    timer = Timer.periodic(Duration(seconds: 2), (Timer t) =>
     getOrders().then((value) {
       setState(() {
+        _notes=[];
         _notes.addAll(value);
+        
       });
-    });
+    }));
     super.initState();
   }
 
